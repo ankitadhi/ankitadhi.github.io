@@ -1,26 +1,11 @@
 .foot {
     width: 100%;
-    background: rgba(30, 255, 0, 0.87);
-    background: radial-gradient(
-        circle farthest-corner at center center,
-        rgba(30, 255, 0, 0.87) 0%,
-        #00ffc8 10%,
-        #00ff6c 10%,
-        rgba(0, 255, 1, 0.91) 20%
-    );
-    background: -webkit-radial-gradient(
-        circle farthest-corner at center center,
-        rgba(30, 255, 0, 0.87) 0%,
-        #00ffc8 10%,
-        #00ff6c 10%,
-        rgba(0, 255, 1, 0.91) 20%
-    );
-    background: -moz-radial-gradient(
-        circle farthest-corner at center center,
-        rgba(30, 255, 0, 0.87) 0%,
-        #00ffc8 10%,
-        #00ff6c 10%,
-        rgba(0, 255, 1, 0.91) 20%
+    background: rgb(114, 131, 215);
+    background: linear-gradient(
+        90deg,
+        rgba(114, 131, 215, 1) 0%,
+        rgba(13, 113, 198, 1) 48%,
+        rgba(125, 131, 236, 1) 100%
     );
     display: flex;
     justify-content: center;
