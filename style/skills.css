@@ -1,0 +1,47 @@
+.skills {
+    margin: 5rem 0;
+}
+.skillList {
+    display: flex;
+    justify-content: space-around;
+    margin: 3.5rem auto;
+}
+.skillIcon {
+    width: 6rem;
+    height: 6rem;
+    background: rgba(30, 255, 0, 0.87);
+    background: radial-gradient(
+        circle farthest-corner at center center,
+        rgba(30, 255, 0, 0.87) 0%,
+        #00ffc8 10%,
+        #00ff6c 10%,
+        rgba(0, 255, 1, 0.91) 20%
+    );
+    background: -webkit-radial-gradient(
+        circle farthest-corner at center center,
+        rgba(30, 255, 0, 0.87) 0%,
+        #00ffc8 10%,
+        #00ff6c 10%,
+        rgba(0, 255, 1, 0.91) 20%
+    );
+    background: -moz-radial-gradient(
+        circle farthest-corner at center center,
+        rgba(30, 255, 0, 0.87) 0%,
+        #00ffc8 10%,
+        #00ff6c 10%,
+        rgba(0, 255, 1, 0.91) 20%
+    );
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div.skillIcon img {
+    width: 3rem;
+}
+div.skillItem p {
+    text-align: center;
+    margin: 1rem auto;
+    color: #18f2b2;
+    font-weight: bold;
+}

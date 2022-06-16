@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Navbar</title>
+        <link rel="stylesheet" href="/style/nav.css" />
+        <link rel="stylesheet" href="/style/intro.css">
+        <link rel="stylesheet" href="/style/skills.css">
+        <link rel="stylesheet" href="/style/footer.css">
+        <link rel="stylesheet" href="/style/contact.css">
+        <link rel="stylesheet" href="/style/global.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Courgette&family=Macondo&family=Permanent+Marker&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <nav>
+        <div class="navBar">
+            <div class="navItems">
+            <div class="leftSection">
+                <a href="#"> <img src="images/logo.png" alt=""></i></a>
+            </div>
+            <div class="rightSection">
+                <ul class="navList">
+                    <li ><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li>
+                        <a href="#projects">Projects</a>
+                    </li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <p class="btn">Hire Me</p>
+                </div>
+        </div>
+        </nav>
+        <main>
+            <div id="about" class="introContainer">
+                <div class="introText">
+                    <p class="normal">Hello, I'm</p>
+                    <p class="big">Ankit Adhikari</p>
+                    <p class="normal">a Web Developer.</p>
+                    <button>Download CV</button>
+                </div>
+                <div class="card">
+                    <p>
+                        Hello, I am Ankit Adhikari. I am a web developer from
+                        Nepal. I have been designing and developing websites for
+                        7 days. I have a little knowlwdge about HTML and CSS. I
+                        can also deploy the website in GitHub.
+                    </p>
+                </div>
+            </div>
+            <div id="skills">
+                <h3 class="sectionTitle">My Skills</h3>
+                <div class="skillList">
+                    <div class="skillItem">
+                        <div class="skillIcon">
+                            <img src="" alt="html" />
+                        </div>
+                        <p>HTML5</p>
+                    </div>
+                    <div class="skillItem">
+                        <div class="skillIcon">
+                            <img src="" alt="css" />
+                        </div>
+                        <p>CSS</p>
+                    </div>
+                    <div class="skillItem">
+                        <div class="skillIcon">
+                            <img src="" alt="github" />
+                        </div>
+                        <p>GitHub</p>
+                    </div>
+                </div>
+            </div>
+            <div id="projects">
+                <h3 class="sectionTitle">My Projects</h3>
+                <div class="projectsGrid"></div>
+                <div class="projectsGrid"></div>
+                <div class="projectsGrid"></div>
+                <div class="projectsGrid"></div>
+                <div class="projectsGrid"></div>
+            </div>
+            <div id="contacts">
+                <h3 class="sectionTitle">Contact</h3>
+                <div class="formContainer">
+                    <form action="contact.html" method="get">
+                        <label for="name">Your Name :</label>
+                        <br />
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Josh Amar"
+                        />
+                        <br />
+                        <label for="email">Your Email :</label>
+                        <br />
+                        <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            placeholder="email@mail.com"
+                        />
+                        <br />
+                        <label for="message">Your Message :</label>
+                        <br />
+                        <textarea
+                            name="message"
+                            id="message"
+                            cols="50"
+                            rows="4"
+                        ></textarea>
+                        <br />
+                        <button class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer class="foot">
+            <p>&copy; 2022, Designed and Developed by Ankit Adhikari</p>
+        </footer>
+        </main>
+    </body>
+</html>

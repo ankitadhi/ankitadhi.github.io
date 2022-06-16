@@ -1,0 +1,33 @@
+.foot {
+    width: 100%;
+    background: rgba(30, 255, 0, 0.87);
+    background: radial-gradient(
+        circle farthest-corner at center center,
+        rgba(30, 255, 0, 0.87) 0%,
+        #00ffc8 10%,
+        #00ff6c 10%,
+        rgba(0, 255, 1, 0.91) 20%
+    );
+    background: -webkit-radial-gradient(
+        circle farthest-corner at center center,
+        rgba(30, 255, 0, 0.87) 0%,
+        #00ffc8 10%,
+        #00ff6c 10%,
+        rgba(0, 255, 1, 0.91) 20%
+    );
+    background: -moz-radial-gradient(
+        circle farthest-corner at center center,
+        rgba(30, 255, 0, 0.87) 0%,
+        #00ffc8 10%,
+        #00ff6c 10%,
+        rgba(0, 255, 1, 0.91) 20%
+    );
+    display: flex;
+    justify-content: center;
+}
+.foot p {
+    align-self: center;
+    color: #042a2b;
+    padding: 1rem;
+    text-align: center;
+}
