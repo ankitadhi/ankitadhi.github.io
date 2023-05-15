@@ -32,8 +32,8 @@ button {
     border-radius: 0.7rem;
     padding: 0.5rem 2rem;
     color: #ffeaee;
-background: rgb(4,1,42);
-background: linear-gradient(90deg, rgba(4,1,42,1) 42%, rgba(2,0,36,1) 53%, rgba(31,9,121,1) 58%, rgba(0,212,255,1) 71%);
+background: rgb(34,193,195);
+background: linear-gradient(0deg, rgba(34,193,195,1) 46%, rgba(41,214,142,1) 65%, rgba(46,230,103,1) 79%, rgba(53,253,45,0.8156512605042017) 95%);
     border-color: rgb(114, 131, 215);
     margin: 1rem 0;
 }
@@ -44,8 +44,8 @@ background: linear-gradient(90deg, rgba(4,1,42,1) 42%, rgba(2,0,36,1) 53%, rgba(
     height: 30%;
     width: 30%;
     color: #ffeaee;
-background: rgb(4,1,42);
-background: linear-gradient(90deg, rgba(4,1,42,1) 42%, rgba(2,0,36,1) 53%, rgba(31,9,121,1) 58%, rgba(0,212,255,1) 71%);
+background: rgb(34,193,195);
+background: linear-gradient(0deg, rgba(34,193,195,1) 46%, rgba(41,214,142,1) 65%, rgba(46,230,103,1) 79%, rgba(53,253,45,0.8156512605042017) 95%);
     border: 2px solid rgb(114, 131, 215);
     border-radius: 0.75rem;
     padding: 1rem;
