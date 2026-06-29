@@ -10,5 +10,5 @@ export default defineConfig({
       presets: [reactCompilerPreset()],
      })
   ],
-  base: '/ankitadhi.github.io/vite-project/',
+  base: '/ankitadhi.github.io/',
 })
