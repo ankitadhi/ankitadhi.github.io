@@ -4,9 +4,211 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vite-project</title>
+    <meta name="theme-color" content="#020617" />
+    <title>Ankit Adhikari | Portfolio</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #020617;
+        --text: rgba(255, 255, 255, 0.95);
+        --muted: rgba(148, 163, 184, 0.95);
+        --surface: rgba(15, 23, 42, 0.7);
+        --surface-strong: rgba(15, 23, 42, 0.88);
+        --border: rgba(255, 255, 255, 0.12);
+        --accent: #22d3ee;
+      }
+
+      [data-theme="light"] {
+        color-scheme: light;
+        --bg: #f8fafc;
+        --text: #0f172a;
+        --muted: #475569;
+        --surface: rgba(255, 255, 255, 0.7);
+        --surface-strong: rgba(255, 255, 255, 0.92);
+        --border: rgba(15, 23, 42, 0.12);
+        --accent: #0891b2;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, "Segoe UI", sans-serif;
+      }
+
+      .mesh-background {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .blob {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(70px);
+        opacity: 0.4;
+        mix-blend-mode: screen;
+        animation: drift 18s ease-in-out infinite alternate;
+      }
+
+      .blob-1 {
+        width: 24rem;
+        height: 24rem;
+        left: -8rem;
+        top: -4rem;
+        background: rgba(168, 85, 247, 0.45);
+      }
+
+      .blob-2 {
+        width: 20rem;
+        height: 20rem;
+        right: -5rem;
+        top: 10%;
+        background: rgba(34, 211, 238, 0.35);
+        animation-duration: 20s;
+      }
+
+      .blob-3 {
+        width: 22rem;
+        height: 22rem;
+        left: 20%;
+        bottom: -8rem;
+        background: rgba(20, 184, 166, 0.35);
+        animation-duration: 22s;
+      }
+
+      .blob-4 {
+        width: 16rem;
+        height: 16rem;
+        right: 15%;
+        bottom: 8%;
+        background: rgba(59, 130, 246, 0.3);
+        animation-duration: 24s;
+      }
+
+      .glass-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 20px 55px rgba(2, 6, 23, 0.14);
+      }
+
+      .interactive-card {
+        transition:
+          transform 0.2s ease,
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .interactive-card:hover {
+        transform: scale(1.02);
+        border-color: rgba(34, 211, 238, 0.6);
+        box-shadow: 0 24px 70px rgba(34, 211, 238, 0.16);
+      }
+
+      .section-reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+
+      .section-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .marquee-track {
+        display: flex;
+        width: max-content;
+        gap: 0.75rem;
+        animation: marquee 24s linear infinite;
+      }
+
+      .marquee-item {
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+        border-radius: 9999px;
+        border: 1px solid rgba(34, 211, 238, 0.25);
+        background: rgba(2, 6, 23, 0.7);
+        padding: 0.45rem 0.85rem;
+        color: #bae6fd;
+        font-size: 0.9rem;
+      }
+
+      .status-dot {
+        display: inline-block;
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 9999px;
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+      }
+
+      .status-dot-connecting {
+        background: #facc15;
+        animation: pulse-dot 1.2s ease-in-out infinite;
+      }
+
+      .status-dot-live {
+        background: #4ade80;
+        box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
+      }
+
+      #root {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+      }
+
+      @keyframes drift {
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        100% {
+          transform: translate3d(3rem, 2rem, 0) scale(1.07);
+        }
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          opacity: 0.7;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.15);
+        }
+      }
+    </style>
   </head>
   <body>
+    <div class="mesh-background" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

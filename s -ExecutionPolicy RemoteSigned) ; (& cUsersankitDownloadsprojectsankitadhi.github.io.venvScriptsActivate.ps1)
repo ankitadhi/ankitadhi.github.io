@@ -1,0 +1,123 @@
+[33mcommit 8a73de6cc850081f6662002d5eadad1025b8ef53[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mnew-experiments[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Wed Jul 1 22:14:33 2026 +0545
+
+    added skills and projects section in portfolio and also added some animations
+
+[33mcommit 40757a26da1152e3cc1165e7288a4324caf58003[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 22:23:14 2026 +0545
+
+    i am a noob
+
+[33mcommit 754901c318649894ea7b2762885a9bb26ab77821[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 22:20:35 2026 +0545
+
+    added some noteworthy thing
+
+[33mcommit 9c918990220bb4af3dbad68c1f55ad2ae1f74d16[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 20:56:54 2026 +0545
+
+    changed the jsx files to tsx
+
+[33mcommit 1bd3dd984a90586e5bc605d4f283f81cbe2a9863[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 00:29:02 2026 +0545
+
+    changed from tsx to jsx
+
+[33mcommit 4ae6942f74d53b01d5cef5dcff857caf3c00700f[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 00:26:52 2026 +0545
+
+    changed simething necessary
+
+[33mcommit 38114f43442337154b3431d6b113da7911c76cc7[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 00:23:40 2026 +0545
+
+    removed the unnecessary files
+
+[33mcommit 3ab366f9ad437b2952be9db1e181c64d05afbf29[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 00:20:52 2026 +0545
+
+    added the remaining unmoved src and .github file
+
+[33mcommit e3bead77ccbd547959923f708a1817d628a56c8e[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 00:16:53 2026 +0545
+
+    Remove .vite cache from tracking, update .gitignore
+
+[33mcommit 5f5f16315fe59d623e53a78cf72cad4721c7d8a4[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 00:13:50 2026 +0545
+
+    Move project to repo root, fix workflow path
+
+[33mcommit 434162e316c1a41c287a320e7c2985b715366e71[m
+Author: Ankit <adhikariankit8@gmail.com>
+Date:   Mon Jun 29 00:01:11 2026 +0545
+
+    Replace HTML/CSS site with React app
+
+[33mcommit 3aba8af94e4d0c8a6be189a1a90a52eec2c7b135[m[33m ([m[1;31morigin/legacy-html-site[m[33m, [m[1;32mlegacy-html-site[m[33m)[m
+Author: ankitadhi <106919906+ankitadhi@users.noreply.github.com>
+Date:   Mon May 15 21:58:14 2023 +0545
+
+    Update intro.css
+
+[33mcommit 90ad8a3a9bf7091e503edad31076b479735a618e[m
+Author: ankitadhi <106919906+ankitadhi@users.noreply.github.com>
+Date:   Mon May 15 21:56:26 2023 +0545
+
+    Update intro.css
+    
+    nnnnnn
+
+[33mcommit eea1155036cb38cedad4ed744e6a60719db1dc96[m
+Author: ankitadhi <106919906+ankitadhi@users.noreply.github.com>
+Date:   Mon May 15 21:50:29 2023 +0545
+
+    Update index.html
+    
+    upated
+
+[33mcommit c584f74d5209162ea3368c24c162fbd746d4ff69[m
+Author: Ankit Adhikari <adhikariankit8@gmail.com>
+Date:   Thu Jun 16 10:10:39 2022 +0545
+
+    change
+
+[33mcommit 1d05caa59e55d7b1cf0117c4a1956c09af97b377[m
+Author: Ankit Adhikari <adhikariankit8@gmail.com>
+Date:   Thu Jun 16 10:08:34 2022 +0545
+
+    added readme file
+
+[33mcommit 8854bdfb69683d87c4086a922ef2a7f13d80952d[m
+Author: Ankit Adhikari <adhikariankit8@gmail.com>
+Date:   Thu Jun 16 10:06:51 2022 +0545
+
+    slight changes
+
+[33mcommit facab35e790e204ae39394b9c13f29e89ec4c28c[m
+Author: Ankit Adhikari <adhikariankit8@gmail.com>
+Date:   Thu Jun 16 09:53:57 2022 +0545
+
+    modified h2 to h3
+
+[33mcommit 480075c2c261091f5af5fca48c764adb743effa3[m
+Author: Ankit Adhikari <adhikariankit8@gmail.com>
+Date:   Thu Jun 16 09:40:39 2022 +0545
+
+    new commit
+
+[33mcommit 73ac33830ad1566b11125c3fcc4b620ab0806686[m
+Author: Ankit Adhikari <adhikariankit8@gmail.com>
+Date:   Thu Jun 16 09:13:10 2022 +0545
+
+    First commit

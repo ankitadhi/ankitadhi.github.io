@@ -35,13 +35,13 @@ function Skills() {
     <ScrollReveal>
       <section
         id="skills"
-        className="scroll-mt-24 border-t border-slate-800 py-16 sm:py-20"
+        className="scroll-mt-24 border-t border-[color:var(--border)] py-16 sm:py-20"
       >
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
             Skills
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl">
             Focus areas I’ve built around in study and project work.
           </h2>
         </div>
@@ -50,7 +50,7 @@ function Skills() {
           {skillGroups.map((group) => (
             <div
               key={group.title}
-              className="rounded-[24px] border border-slate-800/80 bg-slate-900/70 p-6 shadow-[0_0_60px_rgba(2,6,23,0.35)] transition duration-300 hover:-translate-y-1 hover:border-cyan-400/50"
+              className="glass-card interactive-card rounded-[24px] p-6"
             >
               <h3 className="text-lg font-semibold text-cyan-400">
                 {group.title}
@@ -59,7 +59,7 @@ function Skills() {
                 {group.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-sm text-slate-300"
+                    className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface-strong)]/80 px-3 py-1 text-sm text-[color:var(--muted)]"
                   >
                     {skill}
                   </span>
