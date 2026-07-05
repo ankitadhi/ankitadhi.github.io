@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 const initialOutput = [
   "Welcome to Ankit's terminal.",
   "Type 'help' to explore available commands.",
+  "Tip: try 'theme dark', 'theme bright', 'about', 'contact', or 'clear'.",
 ];
 
 function Terminal() {
@@ -24,8 +25,30 @@ function Terminal() {
     switch (command) {
       case "help":
         nextLines.push(
-          "available commands: help, skills, projects, whoami, clear",
+          "available commands: help, skills, projects, whoami, about, contact, theme dark, theme bright, clear",
         );
+        break;
+      case "about":
+        nextLines.push(
+          "Ankit builds ML/NLP systems, practical full-stack apps, and thoughtful digital products.",
+        );
+        break;
+      case "contact":
+        nextLines.push(
+          "Email: ankitadankit@gmail.com",
+          "GitHub: github.com/ankitadhi",
+          "LinkedIn: linkedin.com/in/ankit-adhikari-10853227a",
+        );
+        break;
+      case "theme dark":
+        nextLines.push("Theme switched to dark mode.");
+        window.document.documentElement.setAttribute("data-theme", "dark");
+        window.localStorage.setItem("theme", "dark");
+        break;
+      case "theme bright":
+        nextLines.push("Theme switched to bright mode.");
+        window.document.documentElement.setAttribute("data-theme", "light");
+        window.localStorage.setItem("theme", "light");
         break;
       case "skills":
         nextLines.push(
@@ -43,6 +66,11 @@ function Terminal() {
       case "whoami":
         nextLines.push(
           "Ankit Adhikari is a Computer Engineering student building ML/NLP systems and full-stack products.",
+        );
+        break;
+      case "experience":
+        nextLines.push(
+          "Experience includes AI products, NLP pipelines, REST APIs, and product-focused frontend work.",
         );
         break;
       case "clear":

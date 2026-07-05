@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AvailabilityBadge from "./AvailabilityBadge";
 
 const focusPoints = [
   "Transformers and NLP workflows",
@@ -107,6 +108,7 @@ function Hero() {
     <section id="home" className="scroll-mt-24 py-10 sm:py-12">
       {/* ── Greeting + intro ── */}
       <div className="mb-8 animate-fade-in-up">
+        <AvailabilityBadge />
         <p className="mb-4 inline-flex rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-sm font-medium uppercase tracking-[0.25em] text-cyan-400">
           ML / NLP · Full-stack
         </p>
