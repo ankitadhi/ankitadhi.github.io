@@ -1,10 +1,11 @@
 import { useState } from "react";
 
 const links = [
-  { href: "#about",    label: "About" },
-  { href: "#skills",   label: "Skills" },
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#testimonials", label: "Testimonials" },
   { href: "#projects", label: "Projects" },
-  { href: "#contact",  label: "Contact" },
+  { href: "#contact", label: "Contact" },
 ];
 
 type NavbarProps = {
@@ -17,8 +18,10 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
 
   return (
     <header
-      className="sticky top-0 z-50 border-b border-[color:var(--border)] backdrop-blur-xl"
-      style={{ background: "var(--nav-bg)" }}
+      className="sticky top-4 z-50 mx-auto mb-6 w-full max-w-6xl rounded-full border border-white/10 bg-[color:var(--surface)]/70 px-2 py-2 shadow-[0_12px_40px_rgba(2,6,23,0.16)] backdrop-blur-2xl"
+      style={{
+        background: "color-mix(in srgb, var(--surface) 80%, transparent)",
+      }}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
         <a
@@ -33,6 +36,13 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
         </a>
 
         <div className="flex items-center gap-2">
+          <a
+            href="/Ankit_Adhikari_CV.pdf"
+            download
+            className="hidden rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-sm font-medium text-cyan-300 transition hover:-translate-y-0.5 hover:bg-cyan-500/20 sm:inline-flex"
+          >
+            Download CV
+          </a>
           <nav
             className="hidden items-center gap-5 text-sm sm:flex"
             style={{ color: "var(--muted)" }}
@@ -108,6 +118,14 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
                 {link.label}
               </a>
             ))}
+            <a
+              href="/Ankit_Adhikari_CV.pdf"
+              download
+              className="rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-3 py-3 text-center text-sm text-cyan-300"
+              onClick={() => setMenuOpen(false)}
+            >
+              Download CV
+            </a>
             <button
               type="button"
               onClick={() => {

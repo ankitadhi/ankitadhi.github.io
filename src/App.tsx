@@ -9,6 +9,10 @@ import Footer from "./components/Footer";
 import Terminal from "./components/Terminal";
 import ScrollProgress from "./components/ScrollProgress";
 import BackToTop from "./components/BackToTop";
+import LoadingScreen from "./components/LoadingScreen";
+import CursorTrail from "./components/CursorTrail";
+import MouseSpotlight from "./components/MouseSpotlight";
+import Testimonials from "./components/Testimonials";
 
 function App() {
   const [theme, setTheme] = useState<"dark" | "light">(() => {
@@ -30,13 +34,23 @@ function App() {
     <div
       data-theme={theme}
       className="relative min-h-screen overflow-hidden"
-      style={{ backgroundColor: "var(--bg)", color: "var(--text)", transition: "background-color 0.35s ease, color 0.35s ease" }}
+      style={{
+        backgroundColor: "var(--bg)",
+        color: "var(--text)",
+        transition: "background-color 0.35s ease, color 0.35s ease",
+      }}
     >
+      <LoadingScreen />
+      <CursorTrail />
+      <MouseSpotlight />
       <ScrollProgress />
 
       {/* Mesh gradient background, driven entirely by theme variables now */}
       <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute inset-0" style={{ background: "var(--page-grad)" }} />
+        <div
+          className="absolute inset-0"
+          style={{ background: "var(--page-grad)" }}
+        />
       </div>
 
       <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col px-4 sm:px-6 lg:px-8">
@@ -50,6 +64,7 @@ function App() {
           </div>
           <About />
           <Skills />
+          <Testimonials />
           <Projects />
           <Contact />
         </main>

@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import ScrollReveal from "./ScrollReveal";
 
 const projects = [
@@ -6,6 +7,7 @@ const projects = [
     description:
       "Built an automated system to resolve Git merge conflicts using a fine-tuned transformer model. The work included collecting and preprocessing real-world conflicted code datasets from public GitHub repositories and evaluating outputs to improve resolution accuracy.",
     stack: ["Python", "Hugging Face", "CodeT5", "NLP"],
+    category: "AI",
     link: "#",
     featured: true,
   },
@@ -14,6 +16,7 @@ const projects = [
     description:
       "Developed a full-stack quiz platform with JWT authentication, a custom grading engine, and a global leaderboard. The project involved building REST APIs in Django REST Framework for quiz logic, scoring, and ranking.",
     stack: ["React.js", "Django REST Framework", "MySQL", "TypeScript"],
+    category: "Web",
     link: "#",
     featured: false,
   },
@@ -22,6 +25,7 @@ const projects = [
     description:
       "Created a parser that extracts structured fields such as skills, experience, and education from unstructured resume text. The work focused on text-processing logic and information extraction closely related to NLP tasks.",
     stack: ["Python", "NLP"],
+    category: "AI",
     link: "#",
     featured: false,
   },
@@ -30,12 +34,24 @@ const projects = [
     description:
       "Built a classification model to predict job placement likelihood based on engineered features. The project covered data cleaning, feature engineering, and model evaluation as part of a practical machine learning workflow.",
     stack: ["Python", "Machine Learning"],
+    category: "Data",
     link: "#",
     featured: false,
   },
 ];
 
+const filters = ["All", "AI", "Web", "Data"] as const;
+
+type Filter = (typeof filters)[number];
+
 function Projects() {
+  const [activeFilter, setActiveFilter] = useState<Filter>("All");
+
+  const visibleProjects = useMemo(() => {
+    if (activeFilter === "All") return projects;
+    return projects.filter((project) => project.category === activeFilter);
+  }, [activeFilter]);
+
   return (
     <ScrollReveal>
       <section
@@ -51,8 +67,25 @@ function Projects() {
           </h2>
         </div>
 
+        <div className="mt-6 flex flex-wrap gap-2">
+          {filters.map((filter) => (
+            <button
+              key={filter}
+              type="button"
+              onClick={() => setActiveFilter(filter)}
+              className={`rounded-full border px-3 py-2 text-sm transition ${
+                activeFilter === filter
+                  ? "border-cyan-400/40 bg-cyan-500/10 text-cyan-300"
+                  : "border-[color:var(--border)] bg-[color:var(--surface)]/70 text-[color:var(--muted)]"
+              }`}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+
         <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {projects.map((project, index) => (
+          {visibleProjects.map((project, index) => (
             <article
               key={project.title}
               className={`glass-card interactive-card group rounded-[24px] p-6 ${
