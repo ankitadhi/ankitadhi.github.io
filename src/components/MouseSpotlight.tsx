@@ -8,14 +8,23 @@ type PointerPosition = {
 function MouseSpotlight() {
   const [pointer, setPointer] = useState<PointerPosition>({ x: 0, y: 0 });
 
+  const shouldRender =
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   useEffect(() => {
+    if (!shouldRender) return;
+
     const onMove = (event: MouseEvent) => {
       setPointer({ x: event.clientX, y: event.clientY });
     };
 
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
-  }, []);
+  }, [shouldRender]);
+
+  if (!shouldRender) return null;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-20 overflow-hidden">

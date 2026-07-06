@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import ScrollReveal from "./ScrollReveal";
+import { useTilt } from "../hooks/useTilt";
 
 const projects = [
   {
@@ -44,6 +45,59 @@ const filters = ["All", "AI", "Web", "Data"] as const;
 
 type Filter = (typeof filters)[number];
 
+type Project = (typeof projects)[number];
+
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) {
+  const tiltRef = useTilt<HTMLElement>(6);
+
+  return (
+    <article
+      ref={tiltRef}
+      className={`glass-card interactive-card group rounded-[24px] p-6 ${
+        index === 0 ? "md:col-span-2" : ""
+      }`}
+    >
+      <div className="flex items-center justify-between">
+        <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
+          {project.featured ? "Featured" : "Case Study"}
+        </span>
+        <span className="text-xs text-[color:var(--muted)]">{index + 1}</span>
+      </div>
+      <h3 className="mt-4 text-xl font-semibold text-[color:var(--text)]">
+        {project.title}
+      </h3>
+      <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
+        {project.description}
+      </p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {project.stack.map((item) => (
+          <span
+            key={item}
+            className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface-strong)]/80 px-3 py-1 text-xs text-[color:var(--muted)]"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+      <a
+        href={project.link}
+        className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-cyan-400 transition group-hover:text-cyan-300"
+      >
+        <span>View project</span>
+        <span className="transition-transform duration-200 group-hover:translate-x-1">
+          →
+        </span>
+      </a>
+    </article>
+  );
+}
+
 function Projects() {
   const [activeFilter, setActiveFilter] = useState<Filter>("All");
 
@@ -86,46 +140,7 @@ function Projects() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {visibleProjects.map((project, index) => (
-            <article
-              key={project.title}
-              className={`glass-card interactive-card group rounded-[24px] p-6 ${
-                index === 0 ? "md:col-span-2" : ""
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                  {project.featured ? "Featured" : "Case Study"}
-                </span>
-                <span className="text-xs text-[color:var(--muted)]">
-                  {index + 1}
-                </span>
-              </div>
-              <h3 className="mt-4 text-xl font-semibold text-[color:var(--text)]">
-                {project.title}
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
-                {project.description}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.stack.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface-strong)]/80 px-3 py-1 text-xs text-[color:var(--muted)]"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-              <a
-                href={project.link}
-                className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-cyan-400 transition group-hover:text-cyan-300"
-              >
-                <span>View project</span>
-                <span className="transition-transform duration-200 group-hover:translate-x-1">
-                  →
-                </span>
-              </a>
-            </article>
+            <ProjectCard key={project.title} project={project} index={index} />
           ))}
         </div>
       </section>

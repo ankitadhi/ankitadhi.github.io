@@ -330,6 +330,20 @@ body {
   transform: translateY(-3px) scale(1.05);
 }
 
+/* ─── REDUCED MOTION ──────────────────────────────────────────────────────── */
+/* Respect the OS-level setting: keep the site fully usable, just remove the
+   decorative motion (typewriter blink, floats, spins, reveal slides, etc). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ─── SCROLL PROGRESS BAR ─────────────────────────────────────────────────── */
 .scroll-progress {
   position: fixed;

@@ -29,6 +29,29 @@ const skillGroups = [
 ];
 
 import ScrollReveal from "./ScrollReveal";
+import { useTilt } from "../hooks/useTilt";
+
+type SkillGroup = (typeof skillGroups)[number];
+
+function SkillCard({ group }: { group: SkillGroup }) {
+  const tiltRef = useTilt<HTMLDivElement>(5);
+
+  return (
+    <div ref={tiltRef} className="glass-card interactive-card rounded-[24px] p-6">
+      <h3 className="text-lg font-semibold text-cyan-400">{group.title}</h3>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {group.skills.map((skill) => (
+          <span
+            key={skill}
+            className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface-strong)]/80 px-3 py-1 text-sm text-[color:var(--muted)]"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function Skills() {
   return (
@@ -48,24 +71,7 @@ function Skills() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {skillGroups.map((group) => (
-            <div
-              key={group.title}
-              className="glass-card interactive-card rounded-[24px] p-6"
-            >
-              <h3 className="text-lg font-semibold text-cyan-400">
-                {group.title}
-              </h3>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {group.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface-strong)]/80 px-3 py-1 text-sm text-[color:var(--muted)]"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <SkillCard key={group.title} group={group} />
           ))}
         </div>
       </section>
