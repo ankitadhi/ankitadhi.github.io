@@ -20,7 +20,17 @@ function CursorTrail() {
   const [cursor, setCursor] = useState({ x: 0, y: 0, visible: false });
   const timersRef = useRef<number[]>([]);
 
+  // Skip entirely on touch devices (no real cursor) and when the user has
+  // asked the OS for reduced motion — this effect is pure decoration and
+  // shouldn't burn battery/CPU or trigger motion sensitivity on mobile.
+  const shouldRender =
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   useEffect(() => {
+    if (!shouldRender) return;
+
     const onMove = (event: MouseEvent) => {
       setCursor({ x: event.clientX, y: event.clientY, visible: true });
 
@@ -74,7 +84,9 @@ function CursorTrail() {
       timersRef.current.forEach((timer) => window.clearTimeout(timer));
       timersRef.current = [];
     };
-  }, []);
+  }, [shouldRender]);
+
+  if (!shouldRender) return null;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-30 overflow-hidden">

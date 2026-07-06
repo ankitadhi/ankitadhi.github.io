@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const links = [
   { href: "#about", label: "About" },
@@ -15,6 +15,34 @@ type NavbarProps = {
 
 function Navbar({ theme, onToggleTheme }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  // Scroll-spy: watch each section and mark whichever one is most visible
+  // in the viewport as "active" so the nav link lights up as you scroll.
+  useEffect(() => {
+    const sectionIds = links.map((link) => link.href.replace("#", ""));
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible[0]) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-35% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header
@@ -47,15 +75,21 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
             className="hidden items-center gap-5 text-sm sm:flex"
             style={{ color: "var(--muted)" }}
           >
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="rounded-full px-2 py-1 transition hover:text-cyan-400"
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) => {
+              const isActive = activeSection === link.href.replace("#", "");
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className={`rounded-full px-2 py-1 transition hover:text-cyan-400 ${
+                    isActive ? "bg-cyan-500/10 text-cyan-400" : ""
+                  }`}
+                  aria-current={isActive ? "true" : undefined}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Theme toggle */}
@@ -103,21 +137,28 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
           style={{ borderColor: "var(--border)", background: "var(--nav-bg)" }}
         >
           <div className="flex flex-col gap-2">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="rounded-2xl border px-3 py-3 text-sm transition hover:text-cyan-400"
-                style={{
-                  borderColor: "var(--border)",
-                  backgroundColor: "var(--surface)",
-                  color: "var(--muted)",
-                }}
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) => {
+              const isActive = activeSection === link.href.replace("#", "");
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="rounded-2xl border px-3 py-3 text-sm transition hover:text-cyan-400"
+                  style={{
+                    borderColor: isActive
+                      ? "rgba(34, 211, 238, 0.4)"
+                      : "var(--border)",
+                    backgroundColor: isActive
+                      ? "rgba(34, 211, 238, 0.1)"
+                      : "var(--surface)",
+                    color: isActive ? "#22d3ee" : "var(--muted)",
+                  }}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
             <a
               href="/Ankit_Adhikari_CV.pdf"
               download

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AvailabilityBadge from "./AvailabilityBadge";
+import { useMagnetic } from "../hooks/useMagnetic";
 
 const focusPoints = [
   "Transformers and NLP workflows",
@@ -92,6 +93,10 @@ function Hero() {
   const [displayed, setDisplayed] = useState("");
   const [done, setDone] = useState(false);
 
+  // Magnetic pull on the primary CTAs — subtle drift toward the cursor
+  const workBtnRef = useMagnetic<HTMLAnchorElement>();
+  const contactBtnRef = useMagnetic<HTMLAnchorElement>();
+
   useEffect(() => {
     if (displayed.length >= greeting.length) {
       setDone(true);
@@ -135,14 +140,16 @@ function Hero() {
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <a
+            ref={workBtnRef}
             href="#projects"
-            className="rounded-full bg-cyan-500 px-5 py-2.5 text-sm font-medium text-slate-950 transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-400"
+            className="rounded-full bg-cyan-500 px-5 py-2.5 text-sm font-medium text-slate-950 duration-200 hover:bg-cyan-400"
           >
             See my work
           </a>
           <a
+            ref={contactBtnRef}
             href="#contact"
-            className="rounded-full border border-[color:var(--border)] px-5 py-2.5 text-sm font-medium text-[color:var(--text)] transition duration-200 hover:-translate-y-0.5 hover:border-cyan-400/60 hover:text-cyan-400"
+            className="rounded-full border border-[color:var(--border)] px-5 py-2.5 text-sm font-medium text-[color:var(--text)] duration-200 hover:border-cyan-400/60 hover:text-cyan-400"
           >
             Contact me
           </a>
