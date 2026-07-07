@@ -13,6 +13,8 @@ import LoadingScreen from "./components/LoadingScreen";
 import CursorTrail from "./components/CursorTrail";
 import MouseSpotlight from "./components/MouseSpotlight";
 import Testimonials from "./components/Testimonials";
+import ProjectDetail from "./components/ProjectDetail";
+import type { Project } from "./components/Projects";
 
 function App() {
   const [theme, setTheme] = useState<"dark" | "light">(() => {
@@ -28,6 +30,37 @@ function App() {
 
   const toggleTheme = () =>
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+
+  // ── Project detail "page" (no router in this project, so we fake one
+  // with history.pushState + popstate so the URL updates and the browser
+  // back button closes the detail view naturally). ──
+  const [selectedProject, setSelectedProject] = useState<Project | null>(
+    null,
+  );
+
+  const openProject = (project: Project) => {
+    setSelectedProject(project);
+    window.history.pushState({ project: project.slug }, "", `#/project/${project.slug}`);
+    window.scrollTo({ top: 0, behavior: "auto" });
+  };
+
+  const closeProject = () => {
+    setSelectedProject(null);
+    if (window.location.hash.startsWith("#/project/")) {
+      window.history.pushState(null, "", window.location.pathname);
+    }
+    window.scrollTo({ top: 0, behavior: "auto" });
+  };
+
+  useEffect(() => {
+    const onPopState = () => {
+      if (!window.location.hash.startsWith("#/project/")) {
+        setSelectedProject(null);
+      }
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   return (
     // data-theme on the root div means all children inherit variables
@@ -58,15 +91,21 @@ function App() {
         <Navbar theme={theme} onToggleTheme={toggleTheme} />
 
         <main className="flex-1 py-6 lg:py-8">
-          <Hero />
-          <div className="py-10 sm:py-12">
-            <Terminal />
-          </div>
-          <About />
-          <Skills />
-          <Testimonials />
-          <Projects />
-          <Contact />
+          {selectedProject ? (
+            <ProjectDetail project={selectedProject} onBack={closeProject} />
+          ) : (
+            <>
+              <Hero />
+              <div className="py-10 sm:py-12">
+                <Terminal onSetTheme={setTheme} />
+              </div>
+              <About />
+              <Skills />
+              <Testimonials />
+              <Projects onExpand={openProject} />
+              <Contact />
+            </>
+          )}
         </main>
 
         <Footer />
