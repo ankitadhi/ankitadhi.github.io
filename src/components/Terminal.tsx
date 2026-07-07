@@ -6,7 +6,11 @@ const initialOutput = [
   "Tip: try 'theme dark', 'theme bright', 'about', 'contact', or 'clear'.",
 ];
 
-function Terminal() {
+type TerminalProps = {
+  onSetTheme: (theme: "dark" | "light") => void;
+};
+
+function Terminal({ onSetTheme }: TerminalProps) {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState<string[]>(initialOutput);
 
@@ -42,13 +46,11 @@ function Terminal() {
         break;
       case "theme dark":
         nextLines.push("Theme switched to dark mode.");
-        window.document.documentElement.setAttribute("data-theme", "dark");
-        window.localStorage.setItem("theme", "dark");
+        onSetTheme("dark");
         break;
       case "theme bright":
         nextLines.push("Theme switched to bright mode.");
-        window.document.documentElement.setAttribute("data-theme", "light");
-        window.localStorage.setItem("theme", "light");
+        onSetTheme("light");
         break;
       case "skills":
         nextLines.push(

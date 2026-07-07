@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AvailabilityBadge from "./AvailabilityBadge";
+import SentimentAnalyzer from "./SentimentAnalyzer";
 import { useMagnetic } from "../hooks/useMagnetic";
 
 const focusPoints = [
@@ -215,6 +216,11 @@ function Hero() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* ── Sentiment Analyser demo ── */}
+      <div className="mt-6 animate-fade-in-up [animation-delay:280ms]">
+        <SentimentAnalyzer />
       </div>
     </section>
   );

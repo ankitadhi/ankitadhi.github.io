@@ -4,6 +4,7 @@ import { useTilt } from "../hooks/useTilt";
 
 const projects = [
   {
+    slug: "merge-conflict-resolver",
     title: "Merge Conflict Resolver using Transformers",
     description:
       "Built an automated system to resolve Git merge conflicts using a fine-tuned transformer model. The work included collecting and preprocessing real-world conflicted code datasets from public GitHub repositories and evaluating outputs to improve resolution accuracy.",
@@ -13,6 +14,7 @@ const projects = [
     featured: true,
   },
   {
+    slug: "quiz-app",
     title: "Quiz App",
     description:
       "Developed a full-stack quiz platform with JWT authentication, a custom grading engine, and a global leaderboard. The project involved building REST APIs in Django REST Framework for quiz logic, scoring, and ranking.",
@@ -22,6 +24,7 @@ const projects = [
     featured: false,
   },
   {
+    slug: "resume-builder-parser",
     title: "Resume Builder and Parser",
     description:
       "Created a parser that extracts structured fields such as skills, experience, and education from unstructured resume text. The work focused on text-processing logic and information extraction closely related to NLP tasks.",
@@ -31,6 +34,7 @@ const projects = [
     featured: false,
   },
   {
+    slug: "job-placement-analysis",
     title: "Job Placement Analysis Model",
     description:
       "Built a classification model to predict job placement likelihood based on engineered features. The project covered data cleaning, feature engineering, and model evaluation as part of a practical machine learning workflow.",
@@ -45,14 +49,16 @@ const filters = ["All", "AI", "Web", "Data"] as const;
 
 type Filter = (typeof filters)[number];
 
-type Project = (typeof projects)[number];
+export type Project = (typeof projects)[number];
 
 function ProjectCard({
   project,
   index,
+  onExpand,
 }: {
   project: Project;
   index: number;
+  onExpand: (project: Project) => void;
 }) {
   const tiltRef = useTilt<HTMLElement>(6);
 
@@ -85,20 +91,32 @@ function ProjectCard({
           </span>
         ))}
       </div>
-      <a
-        href={project.link}
-        className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-cyan-400 transition group-hover:text-cyan-300"
-      >
-        <span>View project</span>
-        <span className="transition-transform duration-200 group-hover:translate-x-1">
-          →
-        </span>
-      </a>
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <a
+          href={project.link}
+          target={project.link.startsWith("http") ? "_blank" : undefined}
+          rel={project.link.startsWith("http") ? "noreferrer" : undefined}
+          className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-300 transition hover:-translate-y-0.5 hover:bg-cyan-500/20"
+        >
+          <span>View Live Demo</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <button
+          type="button"
+          onClick={() => onExpand(project)}
+          className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] px-4 py-2 text-sm font-medium text-[color:var(--text)] transition hover:-translate-y-0.5 hover:border-cyan-400/60 hover:text-cyan-400"
+        >
+          <span>Expand</span>
+          <span className="transition-transform duration-200 group-hover:translate-x-1">
+            →
+          </span>
+        </button>
+      </div>
     </article>
   );
 }
 
-function Projects() {
+function Projects({ onExpand }: { onExpand: (project: Project) => void }) {
   const [activeFilter, setActiveFilter] = useState<Filter>("All");
 
   const visibleProjects = useMemo(() => {
@@ -140,7 +158,12 @@ function Projects() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {visibleProjects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+              onExpand={onExpand}
+            />
           ))}
         </div>
       </section>
