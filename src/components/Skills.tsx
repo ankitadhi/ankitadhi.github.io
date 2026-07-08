@@ -1,7 +1,7 @@
 const skillGroups = [
   {
     title: "Languages",
-    skills: ["Python", "JavaScript", "C"],
+    skills: ["Python", "JavaScript", "C", "C++"],
   },
   {
     title: "Frameworks & Libraries",
@@ -9,11 +9,12 @@ const skillGroups = [
   },
   {
     title: "Tools & Platforms",
-    skills: ["Git", "GitHub", "Jupyter", "Excel", "PowerPoint", "PowerBI"],
+    skills: ["Git", "GitHub", "Jupyter", "PowerPoint", ],
   },
   {
     title: "ML / NLP",
     skills: [
+      "LangChain",
       "NLP",
       "Machine Learning",
       "Data Preprocessing",

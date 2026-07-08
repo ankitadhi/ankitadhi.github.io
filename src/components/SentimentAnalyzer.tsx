@@ -30,6 +30,13 @@ const POSITIVE_WORDS = [
   "nice",
   "best",
   "brilliant",
+  "mesmerizing",
+  "beautiful",
+  "enjoyable",
+  "fun",
+  "delightful",
+  "impressive",
+  "outstanding",
 ];
 
 const NEGATIVE_WORDS = [
@@ -45,6 +52,12 @@ const NEGATIVE_WORDS = [
   "annoying",
   "angry",
   "broken",
+  "kill",
+  "suck",
+  "stupid",
+  "boring",
+  "frustrating",
+  "unpleasant",
 ];
 
 // TODO: replace this with a fetch() to your Django REST endpoint that
