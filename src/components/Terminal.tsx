@@ -54,7 +54,7 @@ function Terminal({ onSetTheme }: TerminalProps) {
         break;
       case "skills":
         nextLines.push(
-          "Python · Django · React · TypeScript · NLP · PyTorch · Hugging Face · Docker · REST APIs · MySQL",
+          "Python · Django · React · TypeScript · NLP · PyTorch · Hugging Face · LangChain · REST APIs · MySQL",
         );
         break;
       case "projects":
