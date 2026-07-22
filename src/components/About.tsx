@@ -9,7 +9,7 @@ function About() {
       >
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
               About
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl">
@@ -28,7 +28,7 @@ function About() {
           </div>
 
           <div className="glass-card interactive-card rounded-[24px] p-6 shadow-[0_0_60px_rgba(2,6,23,0.2)]">
-            <h3 className="text-lg font-semibold text-cyan-400">
+            <h3 className="text-lg font-semibold text-accent">
               What I bring
             </h3>
             <ul className="mt-4 space-y-3 text-sm leading-7 text-[color:var(--muted)]">
@@ -36,11 +36,11 @@ function About() {
                 Strong foundation in Python, NLP, and machine learning
                 workflows.
               </li>
-              <li className="rounded-2xl border border-white/10 bg-slate-950/60 p-3">
+              <li className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-strong)]/80 p-3">
                 Hands-on experience with transformers, prompt engineering, and
                 LLM-related projects.
               </li>
-              <li className="rounded-2xl border border-white/10 bg-slate-950/60 p-3">
+              <li className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-strong)]/80 p-3">
                 Comfortable building both backend systems and user-facing
                 interfaces.
               </li>

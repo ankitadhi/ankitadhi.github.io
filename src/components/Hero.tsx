@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import AvailabilityBadge from "./AvailabilityBadge";
 import SentimentAnalyzer from "./SentimentAnalyzer";
 import { useMagnetic } from "../hooks/useMagnetic";
@@ -16,7 +16,7 @@ const socialLinks = [
     icon: (
       <svg
         viewBox="0 0 98 96"
-        className="h-[18px] w-[18px]"
+        className="h-[16px] w-[16px]"
         fill="currentColor"
         aria-hidden="true"
       >
@@ -27,7 +27,8 @@ const socialLinks = [
         />
       </svg>
     ),
-    hoverClass: "hover:text-white hover:border-white/40 hover:bg-white/10",
+    hoverClass:
+      "hover:text-[color:var(--text)] hover:border-[color:var(--text)]/30 hover:bg-[color:var(--text)]/10",
   },
   {
     href: "https://www.linkedin.com/in/ankit-adhikari-10853227a/",
@@ -35,7 +36,7 @@ const socialLinks = [
     icon: (
       <svg
         viewBox="0 0 24 24"
-        className="h-[18px] w-[18px]"
+        className="h-[16px] w-[16px]"
         fill="currentColor"
         aria-hidden="true"
       >
@@ -51,7 +52,7 @@ const socialLinks = [
     icon: (
       <svg
         viewBox="0 0 24 24"
-        className="h-[18px] w-[18px]"
+        className="h-[16px] w-[16px]"
         aria-hidden="true"
         fill="none"
       >
@@ -87,51 +88,73 @@ const socialLinks = [
   },
 ];
 
-const greeting = "Hi, I'm Ankit Adhikari.";
+const GREETING = "Hi, I'm Ankit Adhikari.";
+
+type Phase = "typing" | "paused" | "deleting";
 
 function Hero() {
-  // Letter-by-letter heading
   const [displayed, setDisplayed] = useState("");
-  const [done, setDone] = useState(false);
+  const [phase, setPhase] = useState<Phase>("typing");
 
-  // Magnetic pull on the primary CTAs — subtle drift toward the cursor
+  // Magnetic pull on the primary CTAs
   const workBtnRef = useMagnetic<HTMLAnchorElement>();
   const contactBtnRef = useMagnetic<HTMLAnchorElement>();
 
-  useEffect(() => {
-    if (displayed.length >= greeting.length) {
-      setDone(true);
-      return;
+  // Continuous typewriter: type → pause → delete → pause → repeat
+  const tick = useCallback(() => {
+    switch (phase) {
+      case "typing":
+        if (displayed.length < GREETING.length) {
+          setDisplayed(GREETING.slice(0, displayed.length + 1));
+        } else {
+          setPhase("paused");
+        }
+        break;
+      case "deleting":
+        if (displayed.length > 0) {
+          setDisplayed(displayed.slice(0, -1));
+        } else {
+          setPhase("typing");
+        }
+        break;
+      default:
+        break;
     }
-    const t = setTimeout(
-      () => setDisplayed(greeting.slice(0, displayed.length + 1)),
-      55,
-    );
-    return () => clearTimeout(t);
-  }, [displayed]);
+  }, [displayed, phase]);
+
+  useEffect(() => {
+    if (phase === "paused") {
+      // Hold complete text for 2s before deleting
+      const pause = setTimeout(() => setPhase("deleting"), 2000);
+      return () => clearTimeout(pause);
+    }
+
+    const speed = phase === "typing" ? 60 : 35;
+    const timer = setTimeout(tick, speed);
+    return () => clearTimeout(timer);
+  }, [tick, phase]);
 
   return (
     <section id="home" className="scroll-mt-24 py-10 sm:py-12">
       {/* ── Greeting + intro ── */}
       <div className="mb-8 animate-fade-in-up">
         <AvailabilityBadge />
-        <p className="mb-4 inline-flex rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-sm font-medium uppercase tracking-[0.25em] text-cyan-400">
+        <p className="chip-accent mb-4 inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium uppercase tracking-[0.25em]">
           ML / NLP · Full-stack
         </p>
 
         <h1 className="text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl lg:text-5xl">
-          {/* Render letter by letter, colour "Ankit Adhikari" portion */}
           {displayed.split("").map((char, i) => {
             const nameStart = "Hi, I'm ".length;
             const nameEnd = nameStart + "Ankit Adhikari".length;
             const isName = i >= nameStart && i < nameEnd;
             return (
-              <span key={i} className={isName ? "text-cyan-400" : ""}>
+              <span key={i} className={isName ? "text-accent" : ""}>
                 {char}
               </span>
             );
           })}
-          {!done && <span className="typewriter-cursor" />}
+          <span className="typewriter-cursor" />
         </h1>
 
         <p className="mt-5 max-w-xl text-base leading-8 text-[color:var(--muted)] sm:text-lg">
@@ -139,24 +162,24 @@ function Hero() {
           ideas into reliable user experiences.
         </p>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3">
+        <div className="mt-5 flex flex-wrap items-center gap-2.5">
           <a
             ref={workBtnRef}
             href="#projects"
-            className="rounded-full bg-cyan-500 px-5 py-2.5 text-sm font-medium text-slate-950 duration-200 hover:bg-cyan-400"
+            className="btn-accent rounded-full px-4 py-2 text-xs font-medium duration-200"
           >
             See my work
           </a>
           <a
             ref={contactBtnRef}
             href="#contact"
-            className="rounded-full border border-[color:var(--border)] px-5 py-2.5 text-sm font-medium text-[color:var(--text)] duration-200 hover:border-cyan-400/60 hover:text-cyan-400"
+            className="btn-ghost-accent rounded-full px-4 py-2 text-xs font-medium duration-200"
           >
             Contact me
           </a>
 
-          {/* ── Favicons / social links (moved here from the removed profile card) ── */}
-          <div className="ml-1 flex items-center gap-2">
+          {/* Social links */}
+          <div className="ml-1 flex items-center gap-1.5">
             {socialLinks.map((link) => (
               <a
                 key={link.label}
@@ -165,7 +188,7 @@ function Hero() {
                 rel={link.href.startsWith("http") ? "noreferrer" : undefined}
                 aria-label={link.label}
                 title={link.label}
-                className={`flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--muted)] transition-all duration-200 ${link.hoverClass}`}
+                className={`flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--muted)] transition-all duration-200 ${link.hoverClass}`}
               >
                 {link.icon}
               </a>
@@ -176,9 +199,9 @@ function Hero() {
 
       {/* ── Current Focus card ── */}
       <div className="animate-fade-in-up [animation-delay:200ms]">
-        <div className="glass-card interactive-card rounded-[28px] p-6 shadow-[0_0_48px_rgba(8,145,178,0.12)] sm:p-7">
+        <div className="glass-card interactive-card rounded-[28px] p-6 shadow-[0_0_48px_var(--accent-15)] sm:p-7">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
               Current focus
             </p>
           </div>
@@ -194,10 +217,10 @@ function Hero() {
                 </p>
               </div>
               <div className="relative h-14 w-14 shrink-0">
-                <div className="absolute inset-0 rounded-full border border-cyan-400/30" />
-                <div className="absolute inset-2 rounded-full border border-cyan-400/40" />
-                <div className="absolute inset-4 rounded-full bg-cyan-500/15" />
-                <div className="absolute inset-0 animate-spin-slow rounded-full border-2 border-transparent border-t-cyan-400" />
+                <div className="absolute inset-0 rounded-full border border-[color:var(--accent-30)]" />
+                <div className="absolute inset-2 rounded-full border border-[color:var(--accent-40)]" />
+                <div className="absolute inset-4 rounded-full bg-[color:var(--accent-15)]" />
+                <div className="absolute inset-0 animate-spin-slow rounded-full border-2 border-transparent border-t-[color:var(--accent)]" />
               </div>
             </div>
           </div>
@@ -208,7 +231,7 @@ function Hero() {
                 key={point}
                 className="flex items-center gap-3 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-strong)]/80 px-4 py-3"
               >
-                <div className="h-2 w-2 shrink-0 rounded-full bg-cyan-400" />
+                <div className="h-2 w-2 shrink-0 rounded-full bg-[color:var(--accent)]" />
                 <p className="text-sm leading-6 text-[color:var(--muted)]">
                   {point}
                 </p>

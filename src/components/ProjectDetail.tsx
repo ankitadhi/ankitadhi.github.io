@@ -25,14 +25,14 @@ function ProjectDetail({ project, onBack }: ProjectDetailProps) {
       <button
         type="button"
         onClick={onBack}
-        className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] px-4 py-2 text-sm font-medium text-[color:var(--text)] transition hover:-translate-y-0.5 hover:border-cyan-400/60 hover:text-cyan-400"
+        className="btn-ghost-accent inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5"
       >
         <span aria-hidden="true">←</span>
         <span>Back to portfolio</span>
       </button>
 
       <div className="mt-8 animate-fade-in-up">
-        <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
+        <span className="chip-accent rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]">
           {project.featured ? "Featured" : "Case Study"} · {project.category}
         </span>
 
@@ -67,7 +67,7 @@ function ProjectDetail({ project, onBack }: ProjectDetailProps) {
         </div>
 
         <div className="glass-card mt-8 space-y-4 rounded-[24px] p-6 sm:p-8">
-          <h2 className="text-lg font-semibold text-cyan-400">Overview</h2>
+          <h2 className="text-lg font-semibold text-accent">Overview</h2>
           {GIBBERISH_PARAGRAPHS.map((paragraph, index) => (
             <p
               key={index}
@@ -83,7 +83,7 @@ function ProjectDetail({ project, onBack }: ProjectDetailProps) {
             href={project.link}
             target={project.link.startsWith("http") ? "_blank" : undefined}
             rel={project.link.startsWith("http") ? "noreferrer" : undefined}
-            className="inline-flex items-center gap-2 rounded-full bg-cyan-500 px-5 py-2.5 text-sm font-medium text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-400"
+            className="btn-accent inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5"
           >
             <span>View Live Demo</span>
             <span aria-hidden="true">↗</span>
@@ -91,7 +91,7 @@ function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           <button
             type="button"
             onClick={onBack}
-            className="rounded-full border border-[color:var(--border)] px-5 py-2.5 text-sm font-medium text-[color:var(--text)] transition hover:-translate-y-0.5 hover:border-cyan-400/60 hover:text-cyan-400"
+            className="btn-ghost-accent rounded-full px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5"
           >
             Back to all projects
           </button>

@@ -15,7 +15,7 @@ function BackToTop() {
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className={`back-to-top ${visible ? "visible" : ""} bg-cyan-500 text-slate-950 hover:bg-cyan-400`}
+      className={`back-to-top btn-accent ${visible ? "visible" : ""}`}
       aria-label="Back to top"
       title="Back to top"
     >

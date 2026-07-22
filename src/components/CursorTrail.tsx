@@ -91,18 +91,18 @@ function CursorTrail() {
   return (
     <div className="pointer-events-none fixed inset-0 z-30 overflow-hidden">
       <div
-        className={`absolute h-5 w-5 rounded-full border border-cyan-300/80 transition-opacity duration-200 ${cursor.visible ? "opacity-100" : "opacity-0"}`}
+        className={`absolute h-5 w-5 rounded-full border border-[color:var(--accent-80)] transition-opacity duration-200 ${cursor.visible ? "opacity-100" : "opacity-0"}`}
         style={{
           left: cursor.x,
           top: cursor.y,
           transform: "translate(-50%, -50%)",
-          boxShadow: "0 0 18px rgba(34, 211, 238, 0.2)",
+          boxShadow: "0 0 18px var(--accent-20)",
         }}
       />
       {particles.map((particle) => (
         <span
           key={particle.id}
-          className="absolute rounded-full bg-cyan-300/70 blur-[1px]"
+          className="absolute rounded-full bg-[color:var(--accent-70)] blur-[1px]"
           style={{
             left: particle.x,
             top: particle.y,
@@ -116,7 +116,7 @@ function CursorTrail() {
       {ripple.map((entry) => (
         <span
           key={entry.id}
-          className="absolute rounded-full border border-cyan-300/70"
+          className="absolute rounded-full border border-[color:var(--accent-70)]"
           style={{
             left: entry.x,
             top: entry.y,

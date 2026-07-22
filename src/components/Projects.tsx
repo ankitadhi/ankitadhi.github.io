@@ -70,7 +70,7 @@ function ProjectCard({
       }`}
     >
       <div className="flex items-center justify-between">
-        <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
+        <span className="chip-accent rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em]">
           {project.featured ? "Featured" : "Case Study"}
         </span>
         <span className="text-xs text-[color:var(--muted)]">{index + 1}</span>
@@ -96,7 +96,7 @@ function ProjectCard({
           href={project.link}
           target={project.link.startsWith("http") ? "_blank" : undefined}
           rel={project.link.startsWith("http") ? "noreferrer" : undefined}
-          className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-300 transition hover:-translate-y-0.5 hover:bg-cyan-500/20"
+          className="chip-accent chip-accent-hover inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5"
         >
           <span>View Live Demo</span>
           <span aria-hidden="true">↗</span>
@@ -104,7 +104,7 @@ function ProjectCard({
         <button
           type="button"
           onClick={() => onExpand(project)}
-          className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] px-4 py-2 text-sm font-medium text-[color:var(--text)] transition hover:-translate-y-0.5 hover:border-cyan-400/60 hover:text-cyan-400"
+          className="btn-ghost-accent inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5"
         >
           <span>Expand</span>
           <span className="transition-transform duration-200 group-hover:translate-x-1">
@@ -131,7 +131,7 @@ function Projects({ onExpand }: { onExpand: (project: Project) => void }) {
         className="scroll-mt-24 border-t border-[color:var(--border)] py-16 sm:py-20"
       >
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
             Projects
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl">
@@ -147,7 +147,7 @@ function Projects({ onExpand }: { onExpand: (project: Project) => void }) {
               onClick={() => setActiveFilter(filter)}
               className={`rounded-full border px-3 py-2 text-sm transition ${
                 activeFilter === filter
-                  ? "border-cyan-400/40 bg-cyan-500/10 text-cyan-300"
+                  ? "border-[color:var(--accent-40)] bg-[color:var(--accent-10)] text-accent"
                   : "border-[color:var(--border)] bg-[color:var(--surface)]/70 text-[color:var(--muted)]"
               }`}
             >

@@ -47,7 +47,7 @@ function Testimonials() {
       className="scroll-mt-24 border-t border-[color:var(--border)] py-16 sm:py-20"
     >
       <div className="max-w-3xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
           Testimonials
         </p>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl">
@@ -68,7 +68,7 @@ function Testimonials() {
               <p className="font-semibold text-[color:var(--text)]">
                 {item.name}
               </p>
-              <p className="text-sm text-cyan-400">
+              <p className="text-sm text-accent">
                 {item.role} · {item.company}
               </p>
             </div>
