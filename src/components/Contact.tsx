@@ -49,7 +49,7 @@ function Contact() {
         className="scroll-mt-24 border-t border-[color:var(--border)] py-16 sm:py-20"
       >
         <div className="glass-card interactive-card gradient-ring relative overflow-hidden rounded-[28px] p-8 sm:p-10">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
             Contact
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl">
@@ -145,7 +145,7 @@ function Contact() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="rounded-full bg-cyan-500 px-6 py-2.5 text-sm font-medium text-slate-950 transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-60"
+                className="btn-accent rounded-full px-6 py-2.5 text-sm font-medium transition duration-200 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {status === "sending" ? "Opening mail…" : "Send message"}
               </button>
@@ -167,7 +167,7 @@ function Contact() {
           <div className="mt-8 flex flex-wrap gap-3 border-t border-[color:var(--border)] pt-6 text-sm">
             <a
               href="mailto:ankitadankit@gmail.com"
-              className="rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 font-medium text-cyan-500 transition hover:-translate-y-0.5 hover:bg-cyan-500/20"
+              className="chip-accent chip-accent-hover rounded-full px-4 py-2 font-medium transition hover:-translate-y-0.5"
             >
               Email
             </a>
@@ -175,7 +175,7 @@ function Contact() {
               href="https://github.com/ankitadhi"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-[color:var(--border)] px-4 py-2 font-medium text-[color:var(--text)] transition hover:-translate-y-0.5 hover:border-cyan-400/50 hover:text-cyan-400"
+              className="btn-ghost-accent rounded-full px-4 py-2 font-medium transition hover:-translate-y-0.5"
             >
               GitHub
             </a>
@@ -183,7 +183,7 @@ function Contact() {
               href="https://www.linkedin.com/in/ankit-adhikari-10853227a/"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-[color:var(--border)] px-4 py-2 font-medium text-[color:var(--text)] transition hover:-translate-y-0.5 hover:border-cyan-400/50 hover:text-cyan-400"
+              className="btn-ghost-accent rounded-full px-4 py-2 font-medium transition hover:-translate-y-0.5"
             >
               LinkedIn
             </a>

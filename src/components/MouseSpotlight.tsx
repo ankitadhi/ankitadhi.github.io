@@ -29,17 +29,20 @@ function MouseSpotlight() {
   return (
     <div className="pointer-events-none fixed inset-0 z-20 overflow-hidden">
       <div
-        className="absolute h-72 w-72 rounded-full border border-white/20 bg-white/10 shadow-[0_0_120px_rgba(34,211,238,0.16)] backdrop-blur-2xl"
+        className="absolute h-72 w-72 rounded-full backdrop-blur-2xl"
         style={{
           left: pointer.x - 144,
           top: pointer.y - 144,
           transform: "translate3d(0, 0, 0)",
+          border: "1px solid color-mix(in srgb, var(--text) 14%, transparent)",
+          background: "color-mix(in srgb, var(--text) 5%, transparent)",
+          boxShadow: "0 0 120px var(--accent-15)",
         }}
       />
       <div
         className="absolute inset-0"
         style={{
-          background: `radial-gradient(circle at ${pointer.x}px ${pointer.y}px, rgba(34,211,238,0.18), transparent 24%), radial-gradient(circle at ${pointer.x}px ${pointer.y}px, rgba(167,139,250,0.1), transparent 42%)`,
+          background: `radial-gradient(circle at ${pointer.x}px ${pointer.y}px, color-mix(in srgb, var(--accent) 18%, transparent), transparent 24%), radial-gradient(circle at ${pointer.x}px ${pointer.y}px, color-mix(in srgb, var(--accent-2) 10%, transparent), transparent 42%)`,
           mixBlendMode: "screen",
         }}
       />

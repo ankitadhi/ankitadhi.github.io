@@ -46,7 +46,7 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
 
   return (
     <header
-      className="sticky top-4 z-50 mx-auto mb-6 w-full max-w-6xl rounded-full border border-white/10 bg-[color:var(--surface)]/70 px-2 py-2 shadow-[0_12px_40px_rgba(2,6,23,0.16)] backdrop-blur-2xl"
+      className="sticky top-4 z-50 mx-auto mb-6 w-full max-w-6xl rounded-full border border-[color:var(--border)] bg-[color:var(--surface)]/70 px-2 py-2 shadow-[0_12px_40px_rgba(2,6,23,0.10)] backdrop-blur-2xl"
       style={{
         background: "color-mix(in srgb, var(--surface) 80%, transparent)",
       }}
@@ -57,7 +57,7 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
           className="flex items-center gap-2 text-lg font-semibold tracking-tight"
           style={{ color: "var(--text)" }}
         >
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-cyan-400/40 bg-cyan-500/10 text-sm text-cyan-400">
+          <span className="icon-badge-accent inline-flex h-8 w-8 items-center justify-center rounded-full text-sm">
             A
           </span>
           <span>Ankit</span>
@@ -67,7 +67,7 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
           <a
             href="/Ankit_Adhikari_CV.pdf"
             download
-            className="hidden rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-sm font-medium text-cyan-300 transition hover:-translate-y-0.5 hover:bg-cyan-500/20 sm:inline-flex"
+            className="chip-accent chip-accent-hover hidden rounded-full px-3 py-2 text-sm font-medium transition hover:-translate-y-0.5 sm:inline-flex"
           >
             Download CV
           </a>
@@ -81,8 +81,8 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
                 <a
                   key={link.label}
                   href={link.href}
-                  className={`rounded-full px-2 py-1 transition hover:text-cyan-400 ${
-                    isActive ? "bg-cyan-500/10 text-cyan-400" : ""
+                  className={`rounded-full px-2 py-1 transition hover:text-accent ${
+                    isActive ? "bg-[color:var(--accent-10)] text-accent" : ""
                   }`}
                   aria-current={isActive ? "true" : undefined}
                 >
@@ -96,7 +96,7 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
           <button
             type="button"
             onClick={onToggleTheme}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 hover:border-cyan-300/50 hover:text-cyan-300"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 hover:border-[color:var(--accent-70)] hover:text-accent"
             style={{
               borderColor: "var(--border)",
               backgroundColor: "var(--surface)",
@@ -143,15 +143,15 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="rounded-2xl border px-3 py-3 text-sm transition hover:text-cyan-400"
+                  className="rounded-2xl border px-3 py-3 text-sm transition hover:text-accent"
                   style={{
                     borderColor: isActive
-                      ? "rgba(34, 211, 238, 0.4)"
+                      ? "var(--accent-40)"
                       : "var(--border)",
                     backgroundColor: isActive
-                      ? "rgba(34, 211, 238, 0.1)"
+                      ? "var(--accent-10)"
                       : "var(--surface)",
-                    color: isActive ? "#22d3ee" : "var(--muted)",
+                    color: isActive ? "var(--accent)" : "var(--muted)",
                   }}
                   onClick={() => setMenuOpen(false)}
                 >
@@ -162,7 +162,7 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
             <a
               href="/Ankit_Adhikari_CV.pdf"
               download
-              className="rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-3 py-3 text-center text-sm text-cyan-300"
+              className="chip-accent rounded-2xl px-3 py-3 text-center text-sm"
               onClick={() => setMenuOpen(false)}
             >
               Download CV
@@ -173,7 +173,7 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
                 onToggleTheme();
                 setMenuOpen(false);
               }}
-              className="rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-3 py-3 text-sm text-cyan-300"
+              className="chip-accent rounded-2xl px-3 py-3 text-sm"
             >
               {theme === "dark"
                 ? "Switch to Light mode ☀"

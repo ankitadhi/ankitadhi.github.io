@@ -30,13 +30,6 @@ const POSITIVE_WORDS = [
   "nice",
   "best",
   "brilliant",
-  "mesmerizing",
-  "beautiful",
-  "enjoyable",
-  "fun",
-  "delightful",
-  "impressive",
-  "outstanding",
 ];
 
 const NEGATIVE_WORDS = [
@@ -52,12 +45,6 @@ const NEGATIVE_WORDS = [
   "annoying",
   "angry",
   "broken",
-  "kill",
-  "suck",
-  "stupid",
-  "boring",
-  "frustrating",
-  "unpleasant",
 ];
 
 // TODO: replace this with a fetch() to your Django REST endpoint that
@@ -121,7 +108,7 @@ function SentimentAnalyzer() {
   return (
     <div className="glass-card interactive-card rounded-[28px] p-6 sm:p-7">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
           Sentiment Analyser
         </p>
         <span className="rounded-full border border-amber-400/30 bg-amber-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-300">
@@ -148,7 +135,7 @@ function SentimentAnalyzer() {
           type="button"
           onClick={handleAnalyze}
           disabled={!text.trim() || loading}
-          className="rounded-full bg-cyan-500 px-5 py-2.5 text-sm font-medium text-slate-950 transition duration-200 hover:-translate-y-0.5 hover:bg-cyan-400 disabled:pointer-events-none disabled:opacity-50"
+          className="btn-accent rounded-full px-5 py-2.5 text-sm font-medium transition duration-200 disabled:pointer-events-none disabled:opacity-50"
         >
           {loading ? "Analysing…" : "Analyse"}
         </button>
@@ -159,7 +146,7 @@ function SentimentAnalyzer() {
               setText("");
               setResult(null);
             }}
-            className="text-sm text-[color:var(--muted)] transition hover:text-cyan-400"
+            className="text-sm text-[color:var(--muted)] transition hover:text-accent"
           >
             Clear
           </button>

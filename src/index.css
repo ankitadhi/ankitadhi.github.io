@@ -3,73 +3,94 @@
 @tailwind utilities;
 
 /* ─── THEME VARIABLES ─────────────────────────────────────────────────────── */
-/* Dark (default) — deep navy base with a moody purple-to-magenta mesh gradient */
+/* Dark (default) — Cyber-Ethereal AI: Deep Night */
 :root,
 [data-theme="dark"] {
-  --bg: #0a0e17; /* deep off-black navy, never pure black */
-  --surface: rgba(15, 23, 42, 0.7); /* slate-900/70 */
-  --surface-strong: #0f172a; /* slate-900 */
-  --border: rgba(51, 65, 85, 0.6); /* slate-700/60 */
-  --text: #f1f5f9; /* slate-100 */
-  --muted: #94a3b8; /* slate-400 */
-  --accent: #22d3ee; /* cyan-400 */
-  --accent-2: #a855f7; /* purple-500 */
-  --accent-grad: linear-gradient(135deg, #22d3ee, #6366f1 55%, #a855f7);
+  --bg: #0F172A; /* deep midnight blue-gray */
+  --surface: rgba(15, 23, 42, 0.75); /* slate-900/75 */
+  --surface-strong: #1E293B; /* slate-800 */
+  --border: rgba(51, 65, 85, 0.5); /* slate-700/50 */
+  --text: #E2E8F0; /* soft silver */
+  --muted: #94A3B8; /* slate-400 */
+  --accent: #06B6D4; /* neon cyan */
+  --accent-2: #0891B2; /* cyan-600 deeper variant */
+  --accent-grad: linear-gradient(135deg, #06B6D4, #0EA5E9 55%, #38BDF8);
+  --accent-contrast: #052E38; /* dark text on solid accent fill */
   --nav-bg: linear-gradient(
     120deg,
-    rgba(10, 14, 23, 0.88),
-    rgba(30, 27, 75, 0.78) 55%,
-    rgba(76, 5, 88, 0.65)
+    rgba(15, 23, 42, 0.92),
+    rgba(15, 23, 42, 0.85) 55%,
+    rgba(8, 47, 73, 0.7)
   );
   --page-grad:
     radial-gradient(
       circle at 12% 18%,
-      rgba(139, 92, 246, 0.22),
+      rgba(6, 182, 212, 0.08),
       transparent 45%
     ),
     radial-gradient(
       circle at 85% 12%,
-      rgba(219, 39, 119, 0.16),
+      rgba(14, 165, 233, 0.06),
       transparent 42%
     ),
     radial-gradient(
       circle at 50% 92%,
-      rgba(30, 27, 75, 0.4),
+      rgba(15, 23, 42, 0.6),
       transparent 55%
     ),
-    linear-gradient(160deg, #0a0e17 0%, #171335 48%, #0a0e17 100%);
+    linear-gradient(160deg, #0F172A 0%, #0F172A 100%);
 }
 
-/* Light — pale cream base with a soft pastel mesh gradient (apricot / pink / sky blue) */
+/* Light — Cyber-Ethereal AI: Pristine Frost */
 [data-theme="light"] {
-  --bg: #fdfbf7; /* pale cream, never stark white */
-  --surface: rgba(255, 255, 255, 0.72);
-  --surface-strong: #ffffff;
-  --border: rgba(99, 102, 241, 0.16);
-  --text: #1e1b3a; /* deep indigo-charcoal, not grey */
-  --muted: #5b5678; /* muted violet-grey */
-  --accent: #0891b2; /* cyan-600 */
-  --accent-2: #9333ea; /* purple-600 */
-  --accent-grad: linear-gradient(135deg, #06b6d4, #6366f1 55%, #d946ef);
+  --bg: #F8FAFC; /* frosty off-white */
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-strong: #FFFFFF;
+  --border: rgba(30, 41, 59, 0.1); /* subtle slate hairline */
+  --text: #1E293B; /* deep slate */
+  --muted: #64748B; /* slate-500 */
+  --accent: #2563EB; /* vibrant cobalt */
+  --accent-2: #1D4ED8; /* blue-700 deeper variant */
+  --accent-grad: linear-gradient(135deg, #2563EB, #3B82F6 55%, #60A5FA);
+  --accent-contrast: #FFFFFF; /* white text on solid cobalt fill */
   --nav-bg: linear-gradient(
     120deg,
-    rgba(253, 251, 247, 0.88),
-    rgba(254, 240, 230, 0.78) 55%,
-    rgba(253, 235, 244, 0.8)
+    rgba(248, 250, 252, 0.94),
+    rgba(248, 250, 252, 0.88) 55%,
+    rgba(241, 245, 249, 0.9)
   );
   --page-grad:
     radial-gradient(
       circle at 10% 15%,
-      rgba(251, 191, 154, 0.35),
+      rgba(37, 99, 235, 0.04),
       transparent 45%
     ),
-    radial-gradient(circle at 82% 8%, rgba(249, 168, 212, 0.3), transparent 42%),
+    radial-gradient(
+      circle at 82% 8%,
+      rgba(59, 130, 246, 0.03),
+      transparent 42%
+    ),
     radial-gradient(
       circle at 22% 85%,
-      rgba(147, 197, 253, 0.28),
+      rgba(37, 99, 235, 0.03),
       transparent 48%
     ),
-    linear-gradient(160deg, #fdfbf7 0%, #fdf1e7 45%, #fdedf4 100%);
+    linear-gradient(160deg, #F8FAFC 0%, #F1F5F9 45%, #F8FAFC 100%);
+}
+
+/* ─── ACCENT ALPHA RAMP ───────────────────────────────────────────────────── */
+/* Precomputed accent-with-transparency steps, derived from whichever --accent
+   is active for the current theme. Lets components reach for a consistent
+   alpha (e.g. var(--accent-20)) via Tailwind's `[color:var(--accent-20)]`
+   arbitrary-value syntax instead of hardcoding rgba(34,211,238,…). */
+:root {
+  --accent-10: color-mix(in srgb, var(--accent) 10%, transparent);
+  --accent-15: color-mix(in srgb, var(--accent) 15%, transparent);
+  --accent-20: color-mix(in srgb, var(--accent) 20%, transparent);
+  --accent-30: color-mix(in srgb, var(--accent) 30%, transparent);
+  --accent-40: color-mix(in srgb, var(--accent) 40%, transparent);
+  --accent-70: color-mix(in srgb, var(--accent) 70%, transparent);
+  --accent-80: color-mix(in srgb, var(--accent) 80%, transparent);
 }
 
 /* ─── BASE ────────────────────────────────────────────────────────────────── */
@@ -103,7 +124,7 @@ body {
 }
 
 ::selection {
-  background-color: rgba(34, 211, 238, 0.3);
+  background-color: color-mix(in srgb, var(--accent) 30%, transparent);
   color: var(--text);
 }
 
@@ -124,9 +145,9 @@ body {
 }
 
 .interactive-card:hover {
-  transform: translateY(-2px) scale(1.005);
-  border-color: rgba(34, 211, 238, 0.3);
-  box-shadow: 0 8px 32px rgba(34, 211, 238, 0.08);
+  transform: translateY(-1px) scale(1.002);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 /* ─── STATUS DOT ──────────────────────────────────────────────────────────── */
@@ -153,7 +174,7 @@ body {
     border-color: transparent;
   }
   50% {
-    border-color: #22d3ee;
+    border-color: var(--accent);
   }
 }
 .typewriter-cursor {
@@ -162,7 +183,7 @@ body {
   height: 1em;
   vertical-align: text-bottom;
   margin-left: 2px;
-  border-right: 2px solid #22d3ee;
+  border-right: 2px solid var(--accent);
   animation: type-cursor 0.9s step-end infinite;
 }
 
@@ -251,8 +272,8 @@ body {
 }
 .magnetic-hover:hover {
   transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 12px 32px rgba(34, 211, 238, 0.12);
-  border-color: rgba(34, 211, 238, 0.32);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 32%, transparent);
 }
 
 /* ─── FORM FIELDS ─────────────────────────────────────────────────────────── */
@@ -277,6 +298,110 @@ body {
 .form-field:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+/* ─── ACCENT SYSTEM ───────────────────────────────────────────────────────── */
+/* Every "brand color" touchpoint (buttons, chips, eyebrows, hover states)
+   should route through these theme-aware classes instead of a hardcoded
+   Tailwind palette (e.g. cyan-400/cyan-500), so the light and dark themes can
+   carry genuinely different color moods rather than the same neon on two
+   different backgrounds. */
+.text-accent {
+  color: var(--accent);
+}
+
+.btn-accent {
+  background: var(--accent-grad);
+  color: var(--accent-contrast);
+  border: 1px solid transparent;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 40%, transparent);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease,
+    filter 0.2s ease;
+}
+.btn-accent:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow:
+    0 0 28px color-mix(in srgb, var(--accent) 50%, transparent),
+    0 8px 24px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.btn-accent:disabled,
+.btn-accent[disabled] {
+  transform: none;
+  filter: none;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.btn-accent-outline {
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  background: transparent;
+  color: var(--accent);
+  transition:
+    transform 0.2s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.2s ease;
+}
+.btn-accent-outline:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 30%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.btn-ghost-accent {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  transition:
+    transform 0.2s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.2s ease;
+}
+.btn-ghost-accent:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--accent);
+}
+
+.chip-accent {
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+}
+
+.chip-accent-hover {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.chip-accent-hover:hover {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.link-accent-hover {
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.link-accent-hover:hover {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.ring-accent-soft {
+  border-color: color-mix(in srgb, var(--accent) 32%, transparent) !important;
+}
+
+.icon-badge-accent {
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
 }
 
 /* ─── GRADIENT ACCENTS ────────────────────────────────────────────────────── */
@@ -317,7 +442,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(34, 211, 238, 0.35);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent);
   transition:
     transform 0.2s ease,
     opacity 0.25s ease,
@@ -358,4 +483,272 @@ body {
   background: var(--accent-grad);
   z-index: 60;
   transition: width 0.1s ease-out;
+}
+
+/* ─── FOCUS RING SYSTEM ───────────────────────────────────────────────────── */
+/* Unified keyboard-only focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Suppress focus ring for pointer-initiated focus */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Override form-field box-shadow focus with standard ring */
+.form-field:focus-visible {
+  box-shadow: none;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ─── GRADIENT BORDER HOVER ENHANCEMENT ───────────────────────────────────── */
+.gradient-ring:hover::before {
+  opacity: 0.6;
+  transition: opacity 300ms ease;
+}
+
+/* Touch device guard — prevent hover activation on tap */
+@media (hover: none) {
+  .gradient-ring:hover::before {
+    opacity: 0;
+  }
+}
+
+/* ─── THEME TRANSITION RULES ─────────────────────────────────────────────── */
+/* Smooth theme transition for all custom-property consumers */
+.glass-card,
+.form-field,
+.chip-accent,
+.btn-accent,
+.btn-accent-outline,
+.btn-ghost-accent,
+.icon-badge-accent,
+[data-theme] {
+  transition:
+    background-color 350ms ease,
+    color 350ms ease,
+    border-color 350ms ease,
+    box-shadow 350ms ease;
+}
+
+/* Prevent transition flash on initial page load */
+.no-transition * {
+  transition: none !important;
+}
+
+/* ─── TERMINAL SCANLINE OVERLAY ───────────────────────────────────────────── */
+.terminal-scanlines {
+  position: relative;
+}
+.terminal-scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.04) 3px,
+    rgba(255, 255, 255, 0.04) 4px
+  );
+}
+
+/* ─── TERMINAL COMMAND SEPARATOR ──────────────────────────────────────────── */
+@keyframes separator-fade {
+  0% {
+    opacity: 0;
+  }
+  17.6% {
+    /* 150ms / 850ms ≈ 17.6% — fade-in complete */
+    opacity: 1;
+  }
+  64.7% {
+    /* (150ms + 400ms) / 850ms ≈ 64.7% — hold ends */
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.terminal-separator {
+  height: 1px;
+  border: none;
+  background: var(--accent);
+  animation: separator-fade 850ms ease forwards;
+}
+
+/* ─── TERMINAL GREEN DOT GLOW ─────────────────────────────────────────────── */
+.terminal-dot-glow {
+  box-shadow: 0 0 4px rgba(40, 200, 64, 0.35);
+}
+
+/* ─── LOADING SCREEN: PROGRESS FILL ──────────────────────────────────────── */
+@keyframes progress-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* ─── LOADING SCREEN: EXIT ANIMATION ─────────────────────────────────────── */
+@keyframes loading-exit {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.05);
+    opacity: 0;
+  }
+}
+
+/* ─── HERO FOCUS CARD GLOW ────────────────────────────────────────────────── */
+@keyframes focus-card-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 12px var(--accent-20);
+  }
+  50% {
+    box-shadow: 0 0 12px var(--accent-40);
+  }
+}
+
+/* ─── REDUCED MOTION OVERRIDES FOR NEW ANIMATIONS ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  /* Static separator — no fade animation */
+  .terminal-separator {
+    animation: none;
+    opacity: 1;
+  }
+
+  /* No scanlines display */
+  .terminal-scanlines::before {
+    display: none;
+  }
+
+  /* Static glow — no pulsing animation */
+  .terminal-dot-glow {
+    box-shadow: 0 0 4px rgba(40, 200, 64, 0.35);
+  }
+
+  /* No progress fill animation */
+  .progress-fill-animated {
+    animation: none;
+    width: 100%;
+  }
+}
+
+/* ─── STAGGER CHILD UTILITIES ─────────────────────────────────────────────── */
+/* Initial hidden state for staggered reveal children */
+.stagger-child {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* Revealed state — animates using the existing scroll-reveal keyframe.
+   The animation-delay is applied via inline style from the useStaggerReveal hook. */
+.stagger-child.revealed {
+  animation: scroll-reveal 0.55s ease-out both;
+  animation-delay: var(--stagger-delay, 0ms);
+}
+
+/* ─── SECTION DIVIDER STYLES ──────────────────────────────────────────────── */
+.section-divider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.section-divider.visible {
+  opacity: 1;
+}
+
+/* Gradient line */
+.section-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accent-grad);
+  transform: translateY(-50%);
+}
+
+/* Centered accent dot */
+.section-divider::after {
+  content: "";
+  position: relative;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Theme-based opacity */
+[data-theme="dark"] .section-divider.visible {
+  opacity: 0.75;
+}
+
+[data-theme="light"] .section-divider.visible {
+  opacity: 0.45;
+}
+
+/* Reduced motion: show immediately without fade transition */
+@media (prefers-reduced-motion: reduce) {
+  .section-divider {
+    transition: none;
+  }
+
+  .section-divider.visible {
+    opacity: 1;
+  }
+
+  [data-theme="dark"] .section-divider.visible {
+    opacity: 0.75;
+  }
+
+  [data-theme="light"] .section-divider.visible {
+    opacity: 0.45;
+  }
+}
+
+/* ─── FILTER TRANSITION KEYFRAMES ─────────────────────────────────────────── */
+@keyframes filter-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes filter-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.filter-fading-out {
+  animation: filter-fade-out 200ms ease-out forwards;
+}
+
+.filter-fading-in {
+  animation: filter-fade-in 300ms ease-in forwards;
 }
