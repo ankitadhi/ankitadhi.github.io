@@ -698,6 +698,11 @@ body {
   background: var(--accent);
 }
 
+/* Hide dot when icon is provided */
+.section-divider.has-icon::after {
+  display: none;
+}
+
 /* Theme-based opacity */
 [data-theme="dark"] .section-divider.visible {
   opacity: 0.75;

@@ -5,7 +5,7 @@ function About() {
     <ScrollReveal>
       <section
         id="about"
-        className="scroll-mt-24 border-t border-[color:var(--border)] py-16 sm:py-20"
+        className="scroll-mt-24 py-16 sm:py-20"
       >
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div className="max-w-3xl">

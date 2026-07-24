@@ -3,8 +3,15 @@ import ScrollReveal from "./ScrollReveal";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+type FieldErrors = {
+  name?: string;
+  email?: string;
+  message?: string;
+};
+
 function Contact() {
   const [status, setStatus] = useState<Status>("idle");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -14,16 +21,29 @@ function Contact() {
 
   const handleChange =
     (field: keyof typeof values) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setValues((prev) => ({ ...prev, [field]: e.target.value }));
+      // Clear field error when user starts typing
+      if (field in fieldErrors) {
+        setFieldErrors((prev) => ({ ...prev, [field]: undefined }));
+      }
+    };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!values.name || !values.email || !values.message) {
+    const errors: FieldErrors = {};
+    if (!values.name.trim()) errors.name = "Name cannot be left empty.";
+    if (!values.email.trim()) errors.email = "Email cannot be left empty.";
+    if (!values.message.trim()) errors.message = "Message cannot be left empty.";
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
       setStatus("error");
       return;
     }
+
+    setFieldErrors({});
 
     setStatus("sending");
 
@@ -46,7 +66,7 @@ function Contact() {
     <ScrollReveal>
       <section
         id="contact"
-        className="scroll-mt-24 border-t border-[color:var(--border)] py-16 sm:py-20"
+        className="scroll-mt-24 py-16 sm:py-20"
       >
         <div className="glass-card interactive-card gradient-ring relative overflow-hidden rounded-[28px] p-8 sm:p-10">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
@@ -83,6 +103,9 @@ function Contact() {
                 onChange={handleChange("name")}
                 className="form-field"
               />
+              {fieldErrors.name && (
+                <p className="mt-1 text-xs text-rose-400">{fieldErrors.name}</p>
+              )}
             </div>
 
             <div className="sm:col-span-1">
@@ -102,6 +125,9 @@ function Contact() {
                 onChange={handleChange("email")}
                 className="form-field"
               />
+              {fieldErrors.email && (
+                <p className="mt-1 text-xs text-rose-400">{fieldErrors.email}</p>
+              )}
             </div>
 
             <div className="sm:col-span-2">
@@ -139,6 +165,9 @@ function Contact() {
                 onChange={handleChange("message")}
                 className="form-field resize-none"
               />
+              {fieldErrors.message && (
+                <p className="mt-1 text-xs text-rose-400">{fieldErrors.message}</p>
+              )}
             </div>
 
             <div className="sm:col-span-2 flex flex-wrap items-center gap-4">
@@ -157,7 +186,7 @@ function Contact() {
               )}
               {status === "error" && (
                 <span className="text-sm font-medium text-rose-400">
-                  Please fill in your name, email, and message first.
+                  Fields cannot be left empty. Please fill in all required fields.
                 </span>
               )}
             </div>
