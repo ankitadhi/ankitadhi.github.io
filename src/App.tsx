@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -14,6 +14,7 @@ import CursorTrail from "./components/CursorTrail";
 import MouseSpotlight from "./components/MouseSpotlight";
 import Testimonials from "./components/Testimonials";
 import ProjectDetail from "./components/ProjectDetail";
+import SectionDivider from "./components/SectionDivider";
 import type { Project } from "./components/Projects";
 
 function App() {
@@ -21,6 +22,18 @@ function App() {
     if (typeof window === "undefined") return "dark";
     return (localStorage.getItem("theme") as "dark" | "light") ?? "dark";
   });
+
+  // Prevent theme transition on initial page load
+  const rootRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = rootRef.current;
+    if (el) {
+      el.classList.add("no-transition");
+      requestAnimationFrame(() => {
+        el.classList.remove("no-transition");
+      });
+    }
+  }, []);
 
   // Apply to <html> so every CSS variable picks it up site-wide
   useEffect(() => {
@@ -65,6 +78,7 @@ function App() {
   return (
     // data-theme on the root div means all children inherit variables
     <div
+      ref={rootRef}
       data-theme={theme}
       className="relative min-h-screen overflow-hidden"
       style={{
@@ -99,15 +113,21 @@ function App() {
               <div className="py-10 sm:py-12">
                 <Terminal onSetTheme={setTheme} />
               </div>
+              <SectionDivider />
               <About />
+              <SectionDivider />
               <Skills />
+              <SectionDivider />
               <Testimonials />
+              <SectionDivider />
               <Projects onExpand={openProject} />
+              <SectionDivider />
               <Contact />
             </>
           )}
         </main>
 
+        <SectionDivider />
         <Footer />
       </div>
 

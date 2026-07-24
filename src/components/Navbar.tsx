@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useNavbarScroll from "../hooks/useNavbarScroll";
 
 const links = [
   { href: "#about", label: "About" },
@@ -16,6 +17,16 @@ type NavbarProps = {
 function Navbar({ theme, onToggleTheme }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const menuOpenRef = useRef(false);
+  const navRef = useRef<HTMLElement>(null);
+  const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+
+  // Keep menuOpenRef in sync with menuOpen state
+  useEffect(() => {
+    menuOpenRef.current = menuOpen;
+  }, [menuOpen]);
+
+  const { isCompact } = useNavbarScroll(menuOpenRef);
 
   // Scroll-spy: watch each section and mark whichever one is most visible
   // in the viewport as "active" so the nav link lights up as you scroll.
@@ -44,14 +55,54 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
     return () => observer.disconnect();
   }, []);
 
+  // Calculate underline position for the active link
+  const [underlineStyle, setUnderlineStyle] = useState<{
+    left: number;
+    width: number;
+    visible: boolean;
+  }>({ left: 0, width: 0, visible: false });
+
+  useEffect(() => {
+    if (!activeSection) {
+      setUnderlineStyle((prev) => ({ ...prev, visible: false }));
+      return;
+    }
+
+    const activeLink = linkRefs.current.get(activeSection);
+    const nav = navRef.current;
+    if (!activeLink || !nav) {
+      setUnderlineStyle((prev) => ({ ...prev, visible: false }));
+      return;
+    }
+
+    const navRect = nav.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+
+    setUnderlineStyle({
+      left: linkRect.left - navRect.left,
+      width: linkRect.width,
+      visible: true,
+    });
+  }, [activeSection]);
+
   return (
     <header
-      className="sticky top-4 z-50 mx-auto mb-6 w-full max-w-6xl rounded-full border border-[color:var(--border)] bg-[color:var(--surface)]/70 px-2 py-2 shadow-[0_12px_40px_rgba(2,6,23,0.10)] backdrop-blur-2xl"
+      className="sticky top-4 z-50 mx-auto mb-6 w-full max-w-6xl rounded-full border border-[color:var(--border)] px-2 py-2 shadow-[0_12px_40px_rgba(2,6,23,0.10)] backdrop-blur-2xl"
       style={{
-        background: "color-mix(in srgb, var(--surface) 80%, transparent)",
+        background: isCompact
+          ? "color-mix(in srgb, var(--surface) 92%, transparent)"
+          : "color-mix(in srgb, var(--surface) 70%, transparent)",
+        transition: "background 250ms ease, padding 250ms ease",
       }}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
+      <div
+        className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8"
+        style={{
+          paddingTop: isCompact ? "8px" : "16px",
+          paddingBottom: isCompact ? "8px" : "16px",
+          transition: "padding 250ms ease",
+        }}
+      >
         <a
           href="#home"
           className="flex items-center gap-2 text-lg font-semibold tracking-tight"
@@ -72,17 +123,22 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
             Download CV
           </a>
           <nav
-            className="hidden items-center gap-5 text-sm sm:flex"
+            ref={navRef}
+            className="relative hidden items-center gap-5 text-sm sm:flex"
             style={{ color: "var(--muted)" }}
           >
             {links.map((link) => {
-              const isActive = activeSection === link.href.replace("#", "");
+              const sectionId = link.href.replace("#", "");
+              const isActive = activeSection === sectionId;
               return (
                 <a
                   key={link.label}
                   href={link.href}
+                  ref={(el) => {
+                    if (el) linkRefs.current.set(sectionId, el);
+                  }}
                   className={`rounded-full px-2 py-1 transition hover:text-accent ${
-                    isActive ? "bg-[color:var(--accent-10)] text-accent" : ""
+                    isActive ? "text-accent" : ""
                   }`}
                   aria-current={isActive ? "true" : undefined}
                 >
@@ -90,6 +146,19 @@ function Navbar({ theme, onToggleTheme }: NavbarProps) {
                 </a>
               );
             })}
+            {/* Animated underline indicator */}
+            <span
+              className="pointer-events-none absolute bottom-0 h-[4px] rounded-full"
+              style={{
+                left: `${underlineStyle.left}px`,
+                width: `${underlineStyle.width}px`,
+                opacity: underlineStyle.visible ? 1 : 0,
+                background: "var(--accent)",
+                transition:
+                  "left 200ms ease-out, width 200ms ease-out, opacity 200ms ease-out",
+              }}
+              aria-hidden="true"
+            />
           </nav>
 
           {/* Theme toggle */}

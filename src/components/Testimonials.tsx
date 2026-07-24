@@ -1,33 +1,34 @@
 import { useMemo } from "react";
+import useStaggerReveal from "../hooks/useStaggerReveal";
 
 const testimonials = [
   {
     quote:
-      "Ankit brings a thoughtful mix of technical depth and product sense. His work feels polished and practical from the first draft onward.",
-    name: "Aarav Sharma",
-    role: "Product Designer",
-    company: "Studio North",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    name: "Lorem Ipsum",
+    role: "Dolor Sit",
+    company: "Amet Corp",
   },
   {
     quote:
-      "The ML and full-stack pieces he builds are not only impressive, but also genuinely useful. He understands how to turn ideas into trust.",
-    name: "Meera Patel",
-    role: "Engineering Lead",
-    company: "Nexora Labs",
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    name: "Consectetur Adipiscing",
+    role: "Elit Tempor",
+    company: "Incididunt LLC",
   },
   {
     quote:
-      "He has a rare ability to combine clean interfaces with meaningful technical execution. Every interaction feels intentional.",
-    name: "Daniel Kim",
-    role: "Founder",
-    company: "Brightloop",
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    name: "Excepteur Sint",
+    role: "Occaecat Cupidatat",
+    company: "Proident Inc",
   },
   {
     quote:
-      "Working with Ankit felt effortless. The quality of the implementation and communication was consistently excellent.",
-    name: "Sana Ali",
-    role: "Startup Mentor",
-    company: "Founders Circle",
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.",
+    name: "Nemo Enim",
+    role: "Ipsam Voluptatem",
+    company: "Fugit Studios",
   },
 ];
 
@@ -41,10 +42,14 @@ function Testimonials() {
     return items.slice(0, 3);
   }, []);
 
+  const { containerRef, isVisible, getDelay } = useStaggerReveal<HTMLDivElement>(
+    featured.length,
+  );
+
   return (
     <section
       id="testimonials"
-      className="scroll-mt-24 border-t border-[color:var(--border)] py-16 sm:py-20"
+      className="scroll-mt-24 py-16 sm:py-20"
     >
       <div className="max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
@@ -55,20 +60,27 @@ function Testimonials() {
         </h2>
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-3">
-        {featured.map((item) => (
+      <div ref={containerRef} className="mt-10 grid gap-6 lg:grid-cols-3">
+        {featured.map((item, index) => (
           <article
             key={item.name}
-            className="glass-card magnetic-hover rounded-[24px] border border-[color:var(--border)] p-6"
+            className={`glass-card interactive-card gradient-ring magnetic-hover relative overflow-hidden rounded-[24px] border border-[color:var(--border)] p-6 stagger-child${isVisible ? " revealed" : ""}`}
+            style={{ animationDelay: getDelay(index) + "ms" }}
           >
-            <p className="text-sm leading-7 text-[color:var(--muted)]">
-              “{item.quote}”
+            <span
+              className="gradient-text absolute -top-1 left-3 text-5xl leading-none select-none"
+              aria-hidden="true"
+            >
+              &ldquo;
+            </span>
+            <p className="pt-6 text-sm leading-7 text-[color:var(--muted)]">
+              {item.quote}
             </p>
             <div className="mt-6">
-              <p className="font-semibold text-[color:var(--text)]">
+              <p className="font-semibold text-accent">
                 {item.name}
               </p>
-              <p className="text-sm text-accent">
+              <p className="text-sm text-[color:var(--muted)]">
                 {item.role} · {item.company}
               </p>
             </div>

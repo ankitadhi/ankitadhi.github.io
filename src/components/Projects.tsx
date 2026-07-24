@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import ScrollReveal from "./ScrollReveal";
+import { useFilterTransition } from "../hooks/useFilterTransition";
 import { useTilt } from "../hooks/useTilt";
 
 const projects = [
@@ -65,7 +65,7 @@ function ProjectCard({
   return (
     <article
       ref={tiltRef}
-      className={`glass-card interactive-card group rounded-[24px] p-6 ${
+      className={`glass-card interactive-card gradient-ring group rounded-[24px] p-6 ${
         index === 0 ? "md:col-span-2" : ""
       }`}
     >
@@ -124,50 +124,71 @@ function Projects({ onExpand }: { onExpand: (project: Project) => void }) {
     return projects.filter((project) => project.category === activeFilter);
   }, [activeFilter]);
 
+  const { displayedItems, phase, containerMinHeight, containerRef } =
+    useFilterTransition(visibleProjects);
+
+  // Determine animation class based on phase
+  const phaseClass =
+    phase === "fading-out"
+      ? "filter-fading-out"
+      : phase === "fading-in"
+        ? "filter-fading-in"
+        : "";
+
   return (
-    <ScrollReveal>
-      <section
-        id="projects"
-        className="scroll-mt-24 border-t border-[color:var(--border)] py-16 sm:py-20"
+    <section
+      id="projects"
+      className="scroll-mt-24 py-16 sm:py-20"
+    >
+      <div className="max-w-3xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
+          Projects
+        </p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl">
+          Selected projects from study, experiments, and hands-on builds.
+        </h2>
+      </div>
+
+      <div className="mt-6 flex flex-wrap gap-2">
+        {filters.map((filter) => (
+          <button
+            key={filter}
+            type="button"
+            onClick={() => setActiveFilter(filter)}
+            className={`rounded-full border px-3 py-2 text-sm transition ${
+              activeFilter === filter
+                ? "chip-accent border-[color:var(--accent-40)] bg-[color:var(--accent-10)] text-accent scale-105"
+                : "border-[color:var(--border)] bg-[color:var(--surface)]/70 text-[color:var(--muted)]"
+            }`}
+          >
+            {filter}
+          </button>
+        ))}
+      </div>
+
+      <div
+        ref={containerRef as React.RefObject<HTMLDivElement>}
+        className={`mt-10 grid gap-6 md:grid-cols-2 ${phaseClass}`}
+        style={{
+          minHeight: containerMinHeight ? containerMinHeight + "px" : undefined,
+        }}
       >
-        <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-            Projects
+        {displayedItems.length === 0 ? (
+          <p className="col-span-full text-center text-[color:var(--muted)] py-12">
+            No projects in this category
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl">
-            Selected projects from study, experiments, and hands-on builds.
-          </h2>
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-2">
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              type="button"
-              onClick={() => setActiveFilter(filter)}
-              className={`rounded-full border px-3 py-2 text-sm transition ${
-                activeFilter === filter
-                  ? "border-[color:var(--accent-40)] bg-[color:var(--accent-10)] text-accent"
-                  : "border-[color:var(--border)] bg-[color:var(--surface)]/70 text-[color:var(--muted)]"
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {visibleProjects.map((project, index) => (
+        ) : (
+          displayedItems.map((project, index) => (
             <ProjectCard
               key={project.title}
               project={project}
               index={index}
               onExpand={onExpand}
             />
-          ))}
-        </div>
-      </section>
-    </ScrollReveal>
+          ))
+        )}
+      </div>
+    </section>
   );
 }
 

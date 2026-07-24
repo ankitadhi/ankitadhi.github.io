@@ -1,5 +1,5 @@
-import ScrollReveal from "./ScrollReveal";
 import { useTilt } from "../hooks/useTilt";
+import useStaggerReveal from "../hooks/useStaggerReveal";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -75,13 +75,22 @@ const skillGroups: SkillGroup[] = [
 
 // ─── Skill Card ──────────────────────────────────────────────────────────────
 
-function SkillCard({ group }: { group: SkillGroup }) {
+function SkillCard({
+  group,
+  className = "",
+  style,
+}: {
+  group: SkillGroup;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   const tiltRef = useTilt<HTMLDivElement>(4);
 
   return (
     <div
       ref={tiltRef}
-      className={`glass-card interactive-card relative overflow-hidden rounded-[22px] p-5 sm:p-6 ${group.gridClass}`}
+      className={`glass-card interactive-card relative overflow-hidden rounded-[22px] p-5 sm:p-6 ${group.gridClass} ${className}`}
+      style={style}
     >
       {/* Ambient radial glow for featured card */}
       {group.featured && (
@@ -126,29 +135,37 @@ function SkillCard({ group }: { group: SkillGroup }) {
 // ─── Skills Section ──────────────────────────────────────────────────────────
 
 function Skills() {
-  return (
-    <ScrollReveal>
-      <section
-        id="skills"
-        className="scroll-mt-24 border-t border-[color:var(--border)] py-16 sm:py-20"
-      >
-        <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-            Skills
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl">
-            Focus areas I've built around in study and project work.
-          </h2>
-        </div>
+  const { containerRef, isVisible, getDelay } = useStaggerReveal<HTMLDivElement>(skillGroups.length);
 
-        {/* Bento Box asymmetric grid — ML/NLP spans 2 cols + 2 rows */}
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3 md:auto-rows-auto">
-          {skillGroups.map((group) => (
-            <SkillCard key={group.title} group={group} />
-          ))}
-        </div>
-      </section>
-    </ScrollReveal>
+  return (
+    <section
+      id="skills"
+      className="scroll-mt-24 py-16 sm:py-20"
+    >
+      <div className="max-w-3xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
+          Skills
+        </p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--text)] sm:text-4xl">
+          Focus areas I've built around in study and project work.
+        </h2>
+      </div>
+
+      {/* Bento Box asymmetric grid — ML/NLP spans 2 cols + 2 rows */}
+      <div
+        ref={containerRef}
+        className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3 md:auto-rows-auto"
+      >
+        {skillGroups.map((group, index) => (
+          <SkillCard
+            key={group.title}
+            group={group}
+            className={`stagger-child${isVisible ? " revealed" : ""}`}
+            style={{ animationDelay: getDelay(index) + "ms" }}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
 

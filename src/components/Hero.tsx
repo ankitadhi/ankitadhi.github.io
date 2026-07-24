@@ -149,7 +149,7 @@ function Hero() {
             const nameEnd = nameStart + "Ankit Adhikari".length;
             const isName = i >= nameStart && i < nameEnd;
             return (
-              <span key={i} className={isName ? "text-accent" : ""}>
+              <span key={i} className={isName ? "gradient-text" : ""}>
                 {char}
               </span>
             );
@@ -188,7 +188,7 @@ function Hero() {
                 rel={link.href.startsWith("http") ? "noreferrer" : undefined}
                 aria-label={link.label}
                 title={link.label}
-                className={`flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--muted)] transition-all duration-200 ${link.hoverClass}`}
+                className={`flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--muted)] transition-all duration-200 ease hover:scale-110 hover:shadow-[0_0_8px_var(--accent-30)] ${link.hoverClass}`}
               >
                 {link.icon}
               </a>
@@ -199,7 +199,7 @@ function Hero() {
 
       {/* ── Current Focus card ── */}
       <div className="animate-fade-in-up [animation-delay:200ms]">
-        <div className="glass-card interactive-card rounded-[28px] p-6 shadow-[0_0_48px_var(--accent-15)] sm:p-7">
+        <div className="glass-card interactive-card rounded-[28px] p-6 shadow-[0_0_48px_var(--accent-15)] animate-[focus-card-glow_3s_ease-in-out_infinite] motion-reduce:animate-none motion-reduce:shadow-[0_0_12px_var(--accent-20)] sm:p-7">
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-accent">
               Current focus

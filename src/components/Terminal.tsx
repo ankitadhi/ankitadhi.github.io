@@ -189,7 +189,7 @@ function Terminal({ onSetTheme }: TerminalProps) {
         <div className="flex items-center gap-1.5">
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+          <span className="terminal-dot-glow h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         </div>
         <div className="flex flex-1 items-center justify-center">
           <span className="rounded-md bg-[color:var(--surface)]/60 px-3 py-0.5 text-[11px] font-medium tracking-wide text-[color:var(--muted)]">
@@ -203,7 +203,7 @@ function Terminal({ onSetTheme }: TerminalProps) {
       <div
         ref={scrollRef}
         onClick={focusInput}
-        className="max-h-[360px] min-h-[280px] cursor-text overflow-y-auto scroll-smooth p-4 font-mono text-[13px] leading-relaxed"
+        className="terminal-scanlines max-h-[360px] min-h-[280px] cursor-text overflow-y-auto scroll-smooth p-4 font-mono text-[13px] leading-relaxed"
         style={{
           background:
             "linear-gradient(180deg, rgba(2, 6, 23, 0.97) 0%, rgba(15, 23, 42, 0.98) 100%)",
@@ -212,36 +212,77 @@ function Terminal({ onSetTheme }: TerminalProps) {
         {/* Output lines */}
         <div className="space-y-0.5">
           {lines.map((line, index) => {
-            if (line.type === "input") {
-              return (
-                <div key={index} className="flex items-center gap-2">
-                  <span className="text-[color:var(--accent)] opacity-80">
-                    ❯
-                  </span>
-                  <span className="text-slate-200">{line.text}</span>
-                </div>
-              );
+            // Determine if we should render a separator after this line.
+            // A separator goes after the last line of a successful command block
+            // (i.e., before the next "input" line or the end of all lines).
+            let showSeparator = false;
+            if (line.type === "output" || line.type === "system") {
+              // Check if this is the last line of a command output block
+              const nextLine = lines[index + 1];
+              const isEndOfBlock = !nextLine || nextLine.type === "input";
+
+              if (isEndOfBlock) {
+                // Walk backwards to find the start of this command block
+                // and check if it contains any error lines
+                let hasError = false;
+                let i = index;
+                while (i >= 0 && lines[i].type !== "input") {
+                  if (lines[i].type === "error") {
+                    hasError = true;
+                    break;
+                  }
+                  i--;
+                }
+                // Also check that we actually found a preceding input line
+                // (skip separator for the initial welcome/system lines)
+                const hasInputBefore = i >= 0 && lines[i].type === "input";
+                showSeparator = hasInputBefore && !hasError;
+              }
             }
-            if (line.type === "error") {
+
+            const rendered = (() => {
+              if (line.type === "input") {
+                return (
+                  <div key={index} className="flex items-center gap-2">
+                    <span className="text-[color:var(--accent)] opacity-80">
+                      ❯
+                    </span>
+                    <span className="text-slate-200">{line.text}</span>
+                  </div>
+                );
+              }
+              if (line.type === "error") {
+                return (
+                  <p key={index} className="text-rose-400/90">
+                    {line.text}
+                  </p>
+                );
+              }
+              if (line.type === "system") {
+                return (
+                  <p key={index} className="text-slate-500">
+                    {line.text || "\u00A0"}
+                  </p>
+                );
+              }
+              // output
               return (
-                <p key={index} className="text-rose-400/90">
-                  {line.text}
-                </p>
-              );
-            }
-            if (line.type === "system") {
-              return (
-                <p key={index} className="text-slate-500">
+                <p key={index} className="text-slate-300">
                   {line.text || "\u00A0"}
                 </p>
               );
+            })();
+
+            if (showSeparator) {
+              return (
+                <div key={index}>
+                  {rendered}
+                  <hr className="terminal-separator" />
+                </div>
+              );
             }
-            // output
-            return (
-              <p key={index} className="text-slate-300">
-                {line.text || "\u00A0"}
-              </p>
-            );
+
+            return rendered;
           })}
         </div>
 
